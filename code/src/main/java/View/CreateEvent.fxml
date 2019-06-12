@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="629.0" prefWidth="377.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CreateEventController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="6.0" prefHeight="46.0" prefWidth="362.0" text="Create New Event" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri Bold" size="43.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="14.0" layoutY="77.0" prefHeight="325.0" prefWidth="350.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="145.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="60.0" minHeight="9.0" prefHeight="37.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="headline" GridPane.columnIndex="1" />
+            <TextField fx:id="policePart" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="117.0" text="Headline:">
+               <font>
+                  <Font name="Calibri" size="17.0" />
+               </font>
+            </Label>
+            <Label text="Initial Update:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label text="Police Participant:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Calibri" size="17.0" />
+               </font></Label>
+            <TextArea fx:id="initialUpdate" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="EMS Participant:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
+            <Label text="FD Participant:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
+            <TextField fx:id="EMSPart" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="FDPart" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Button fx:id="createEvent" alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="560.0" mnemonicParsing="false" onAction="#createEventAction" text="Create" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="156.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="-2.0" layoutY="411.0" prefHeight="21.0" prefWidth="377.0" text="Please enter at least one participant.">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <ChoiceBox layoutX="128.0" layoutY="448.0" prefWidth="150.0" />
+      <ComboBox layoutX="128.0" layoutY="490.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
