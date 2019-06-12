@@ -16,7 +16,7 @@ public class TblFields {
         enumDict.put("organization", enumList);
 
         enumList = Arrays.asList("eventId", "title", "eventDate", "eventStatus",
-                "police", "mada", "fire");
+                "police", "mada", "fire", "creator");
         enumDict.put("event", enumList);
 
         enumList = Arrays.asList("participateEventId", "participateUsername");

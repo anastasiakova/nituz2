@@ -84,7 +84,8 @@ public class Main
                 TblFields.enumDict.get("event").get(3) + " INTEGER NOT NULL,\n" +
                 TblFields.enumDict.get("event").get(4) + " text,\n" +
                 TblFields.enumDict.get("event").get(5) + " text,\n" +
-                TblFields.enumDict.get("event").get(6) + " text\n" +
+                TblFields.enumDict.get("event").get(6) + " text,\n" +
+                TblFields.enumDict.get("event").get(7) + " text NOT NULL\n" +
                 ");";
         try (Connection conn = DriverManager.getConnection(_path);
              Statement stmt = conn.createStatement()) {

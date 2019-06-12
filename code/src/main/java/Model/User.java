@@ -1,6 +1,7 @@
 package Model;
 
 public class User {
+    private String username;
     private String name;
     private int rank;
     private AccountStatus accountStatus;
@@ -11,7 +12,8 @@ public class User {
 
     enum AccountStatus {
         enabled,
-        disabled
+        disabled,
+        locked
     }
 
     public String getName() {
