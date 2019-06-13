@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.CreateController;
 import Model.Category;
 import Model.EOCUser;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class CreateEventController {
     public Button createEvent;
     public EOCUser publisher; //understand from where to get it
     public Category[] categories;
+    public CreateController createController;
 
 
     public CreateEventController() {
@@ -51,6 +53,8 @@ public class CreateEventController {
             String FDName = FDPart.getText();
             Calendar calendar = Calendar.getInstance();
             Date publishTime = calendar.getTime();
+//            this.createController.CreateUser(userText.getText(), passText.getText(), date, fNameText.getText()
+//                    , lNameText.getText(), cityText.getText(), idNumber.getText());
 
         }
 
