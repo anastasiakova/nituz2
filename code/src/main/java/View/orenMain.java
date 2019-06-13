@@ -21,9 +21,9 @@ public class orenMain extends Application {
         public void start(Stage primaryStage) throws Exception{
             SQLModel sqlModel = SQLModel.getInstance();
             FXMLLoader fxmlControl = new FXMLLoader();
-            Parent root = fxmlControl.load(getClass().getResource(("CreateEvent.fxml")).openStream());
+            Parent root = fxmlControl.load(getClass().getResource(("OpenWindow.fxml")).openStream());
             primaryStage.setTitle("VACATION 4 U ");
-            CreateEventController view = fxmlControl.getController();
+            OpenWindowController view = fxmlControl.getController();
             //view.initButtons();
             primaryStage.setScene(new Scene(root, 950, 620));
             //primaryStage.getScene().getStylesheets().add("/openWindowCss.css");

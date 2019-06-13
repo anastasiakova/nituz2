@@ -1,11 +1,16 @@
 package Model;
 
 public enum Tables {
-    TBL_USERS,
-    TBL_ORGANIZATIONS,
-    TBL_EVENTS,
-    TBL_EVENTANDPARTICIPATE,
-    TBL_UPDATE
-
+    user,
+    organization,
+    event,
+    eventAndParticipate,
+    feedback,
+    updates,
+    updateVersion,
+    complaint,
+    categories,
+    eventAndCategory,
+    accountMassages
 }
 

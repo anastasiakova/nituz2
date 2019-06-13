@@ -16,7 +16,7 @@ public class SearchController {
         String[] fields = new String[TblFields.enumDict.get("user").size()];
         fields[0] = username;
         fields[1] = pwd;
-        String user = sqlModel.selectFromTable(Tables.TBL_USERS, fields);
+        String user = sqlModel.selectFromTable(Tables.user, fields);
         if(user.equals("")){
             return null;
         }

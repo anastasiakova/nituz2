@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.PreparedStatement;
 
-public class User implements ISQLable {
+public abstract class User implements ISQLable {
     private String username;
     private String name;
     private int rank;
@@ -86,9 +86,7 @@ public class User implements ISQLable {
     }
 
     @Override
-    public void insertRecordToTable(PreparedStatement pstmt) {
-
-    }
+    public abstract void insertRecordToTable(PreparedStatement pstmt);
 
     @Override
     public String getTableFields() {
@@ -96,9 +94,8 @@ public class User implements ISQLable {
     }
 
     @Override
-    public String getFieldsSQLWithValues() {
-        return null;
-    }
+    public abstract String getFieldsSQLWithValues();
+
 
     @Override
     public String getTableName() {
@@ -109,7 +106,4 @@ public class User implements ISQLable {
         this.username = username;
     }
 
-    public String getPwd() {
-        return password;
-    }
 }

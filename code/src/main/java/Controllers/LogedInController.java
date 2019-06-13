@@ -10,17 +10,20 @@ public class LogedInController {
         this.sqlModel = SQLModel.getInstance();
     }
 
-    public boolean tryLogIn(String username,String pwd){
+    public boolean tryLogIn(String username, String pwd) {
         SearchController search = new SearchController();
-        String ans = search.isLoginValid(username,pwd);
+        String ans = search.isLoginValid(username, pwd);
 
-        if (ans != null){
+        if (ans != null) {
             String[] valid = ans.split("\n");
             String[] userFields = valid[0].split(",");
-            if(Organizations.values()[Integer.parseInt(userFields[3])].toString() == "EOC"){
+            String currOrg = Organizations.values()[Integer.parseInt(userFields[3])].toString();
+            if (currOrg =="EOC"){
                 loged = new EOCUser(userFields);
             }
-            else{ loged = new OrganizationUser(userFields);}
+            else{
+                loged = new OrganizationUser(userFields);
+            }
         }
         return false;
     }

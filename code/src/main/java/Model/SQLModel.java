@@ -219,8 +219,8 @@ public class SQLModel {
 
     public String selectFromTable(Tables table, String[] fields, boolean shouldGetAll){
         switch (table) {
-            case TBL_USERS:
-                return selectFromTbl("TBL_USERS", fields, "user", shouldGetAll);
+            case user:
+                return selectFromTbl("user", fields, "user", shouldGetAll);
 
             default:
                 return "";
