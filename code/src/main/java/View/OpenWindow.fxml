@@ -33,10 +33,10 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Button fx:id="loginButton" layoutX="45.0" layoutY="112.0" mnemonicParsing="false" onAction="#logINButtonAction" prefHeight="25.0" prefWidth="58.0" text="Log In" />
+            <Button fx:id="loginButton" layoutX="45.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Log In" />
          </children>
       </AnchorPane>
-      <Button layoutX="291.0" layoutY="150.0" mnemonicParsing="false" onAction="#editUpdate" text="Edit Update" />
+      <Button layoutX="291.0" layoutY="150.0" mnemonicParsing="false" onAction="#addCategory" text="Add Category" />
       <Button fx:id="writeUpdateButtom" layoutX="157.0" layoutY="150.0" mnemonicParsing="false" onAction="#writeUpdate" text="Write Update" />
       <Button fx:id="createEventButtom" layoutX="36.0" layoutY="150.0" mnemonicParsing="false" onAction="#createEvent" text="Create Event" />
    </children>

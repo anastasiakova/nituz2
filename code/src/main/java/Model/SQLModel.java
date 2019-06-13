@@ -210,4 +210,56 @@ public class SQLModel {
             System.out.println(e.getMessage());
         }
     }
+
+    public String selectFromTable(Tables table, String[] fields){
+        boolean shouldGetAll = false;
+        return selectFromTable(table, fields, shouldGetAll);
+    }
+
+
+    public String selectFromTable(Tables table, String[] fields, boolean shouldGetAll){
+        switch (table) {
+            case TBL_USERS:
+                return selectFromTbl("TBL_USERS", fields, "user", shouldGetAll);
+
+            default:
+                return "";
+        }
+    }
+
+    private String selectFromTbl(String table, String[] fields, String tblFields, boolean shouldGetAll) {
+        String sql = "SELECT * FROM ";
+        sql += table.toLowerCase() + "\n";
+        if(!shouldGetAll) {
+            sql += "WHERE ";
+            boolean notFirst = false;
+            for (int i = 0; i < TblFields.enumDict.get(tblFields).size(); i++) {
+                if (fields[i] != "" && fields[i] != null) {
+                    if (notFirst) {
+                        sql += " AND ";
+                    }
+                    notFirst = true;
+                    sql += TblFields.enumDict.get(tblFields).get(i) + "='" + fields[i] + "'";
+                }
+            }
+        }
+        sql += ";";
+        String res = "";
+        try (Connection conn = DriverManager.getConnection(_path);
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                for (int i = 1 ; i <= TblFields.enumDict.get(tblFields).size(); i++){
+                    res += rs.getString(i) + ", ";
+                }
+                res += '\n';
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return res;
+    }
+
 }

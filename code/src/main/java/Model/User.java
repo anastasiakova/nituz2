@@ -2,19 +2,35 @@ package Model;
 
 public class User {
     private String username;
+
+
     private String name;
     private int rank;
     private AccountStatus accountStatus;
-    private String lastaName;
     private String psw;
     private int warnings;
     private String email;
 
-    enum AccountStatus {
+    public enum AccountStatus {
         enabled,
         disabled,
         locked
     }
+
+    public User(String fields){
+
+    }
+
+    public User(String username, String psw, String name, int rank, AccountStatus accountStatus, String email, int warnings) {
+        this.username = username;
+        this.name = name;
+        this.rank = rank;
+        this.accountStatus = accountStatus;
+        this.psw = psw;
+        this.warnings = warnings;
+        this.email = email;
+    }
+
 
     public String getName() {
         return name;
@@ -28,10 +44,6 @@ public class User {
         return accountStatus;
     }
 
-    public String getLastaName() {
-        return lastaName;
-    }
-
     public String getPsw() {
         return psw;
     }
@@ -43,4 +55,9 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
 }

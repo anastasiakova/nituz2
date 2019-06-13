@@ -8,5 +8,5 @@ public class Update {
     private Update previous;
     private Update firstEdit;
     private User publisher;
-    private Event event;
+    //private Event event;
 }
