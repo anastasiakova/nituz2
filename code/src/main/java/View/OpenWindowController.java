@@ -19,9 +19,9 @@ public class OpenWindowController {
     public Button logOutButton;
     public Label welcomeLabel;
     public LogedInController logedInController;
-    private boolean userModeOn;
-    private Label useLabel;
-    private Label passLabel;
+    public boolean userModeOn;
+    public Label useLabel;
+    public Label passLabel;
 
     public void setController(LogedInController logedInController) {
         this.logedInController = logedInController;

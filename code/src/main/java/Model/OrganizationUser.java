@@ -12,10 +12,23 @@ public class OrganizationUser extends User {
 
 
 
-    //username, psw, name, Integer.parseInt(rank), AccountStatus.values()[Integer.parseInt(accountStatus)], email, Integer.parseInt(warnings)
+    //username, psw, name, Integer.parseInt(rank), AccountStatus, email, Integer.parseInt(warnings)
     public OrganizationUser(String[] fields) {
-        super(fields[0], fields[1], fields[2], Integer.parseInt(fields[4]), AccountStatus.values()[Integer.parseInt(fields[5])], fields[6], Integer.parseInt(fields[7]));
-        this.orgName = Organizations.values()[Integer.parseInt(fields[3])];
+        super(fields[0], fields[1], fields[2], Integer.parseInt(fields[4]), fields[5].trim(), fields[6], Integer.parseInt(fields[7]));
+        switch (fields[3]) {
+            case "Police":
+                this.orgName = Organizations.Police;
+                break;
+            case "EMS":
+                this.orgName = Organizations.EMS;
+                break;
+            case "FD":
+                this.orgName = Organizations.FD;
+                break;
+            default:
+                System.out.println("shit");
+
+        }
 
     }
 

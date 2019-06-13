@@ -16,16 +16,20 @@ public class LogedInController {
 
         if (ans != null) {
             String[] valid = ans.split("\n");
-            String[] userFields = valid[0].split(",");
-            String currOrg = userFields[3].trim();
+            String[] userFields = valid[0].split(", ");
+            String currOrg = userFields[3];
             String eoc = Organizations.EOC.toString();
             if (currOrg.equals(eoc)) {
                 loged = new EOCUser(userFields);
             } else {
                 loged = new OrganizationUser(userFields);
             }
+            return true;
         }
-        return false;
+        else{
+            return false;
+        }
+
     }
 
 }

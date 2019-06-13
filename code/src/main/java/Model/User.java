@@ -36,14 +36,23 @@ public abstract class User implements ISQLable {
 
     }
 
-    public User(String username, String password, String name, int rank, AccountStatus accountStatus, String email, int warnings) {
+    public User(String username, String password, String name, int rank, String accountStatus, String email, int warnings) {
         this.username = username;
         this.name = name;
         this.rank = rank;
-        this.accountStatus = accountStatus;
         this.password = password;
         this.warnings = warnings;
         this.email = email;
+        switch (accountStatus) {
+            case "enabled":
+                this.accountStatus = AccountStatus.enabled;
+                break;
+            case "disabled":
+                this.accountStatus = AccountStatus.disabled;
+            case "locked":
+                this.accountStatus = AccountStatus.locked;
+        }
+
     }
 
 
