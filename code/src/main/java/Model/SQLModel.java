@@ -52,7 +52,7 @@ public class SQLModel {
                 TblFields.enumDict.get("user").get(2) + " text NOT NULL,\n" +
                 TblFields.enumDict.get("user").get(3) + " text NOT NULL,\n" +
                 TblFields.enumDict.get("user").get(4) + " INTEGER,\n" +
-                TblFields.enumDict.get("user").get(5) + " INTEGER NOT NULL,\n" +
+                TblFields.enumDict.get("user").get(5) + " text NOT NULL,\n" +
                 TblFields.enumDict.get("user").get(6) + " text NOT NULL,\n" +
                 TblFields.enumDict.get("user").get(7) + " INTEGER NOT NULL\n" +
                 ");";
@@ -261,5 +261,4 @@ public class SQLModel {
         }
         return res;
     }
-
 }

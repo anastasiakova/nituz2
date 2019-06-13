@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Event{
     private int id;
@@ -19,7 +20,7 @@ public class Event{
     private HashMap<Organizations, OrganizationUser> inCharge;
     private HashMap<String, Permission> participants;
     private EOCUser creator;
-    private ArrayList<Update> updates;
+    private LinkedList<Update> updates = new LinkedList<>();
 
     enum Status {
         inTreatment,
@@ -64,47 +65,35 @@ public class Event{
     }
 
     private void addInCharge(String userName, Organizations organization) {
-        ResultSet user = getUserByOrganization(userName, organization);
-        try {
-            inCharge.put(organization, new OrganizationUser(user.getString("username"), user.getString("psw"),
-                    user.getString("organization"), user.getString("rank"),
-                    user.getString("accountStatus"), user.getString("email"), user.getString("warnings")));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        OrganizationUser user = getUserByOrganization(userName, organization);
+
+        inCharge.put(organization, user);
     }
 
     private void addCreator(String username){
-        ResultSet user = getUserByOrganization(username, Organizations.EOC);
-        if(user == null){
-            //TO DO Exception must have creator
-        }
-        try {
-            creator = new EOCUser(user.getString("username"), user.getString("psw"),
-                    user.getString("organization"), user.getString("rank"),
-                    user.getString("accountStatus"), user.getString("email"), user.getString("warnings"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        SQLModel sql = SQLModel.getInstance();
+
+        String[] fields = new String[TblFields.enumDict.get("user").size()];
+        fields[0] = username;
+
+        boolean shouldGetAllFields = true;
+        String userStrRep = sql.selectFromTable(Tables.TBL_USERS, fields, shouldGetAllFields);
+
+        creator = new EOCUser(userStrRep);
     }
 
-    private ResultSet getUserByOrganization(String username, Organizations organization) {
-        //TO DO the path shuld come from sql singleton
-        Path currentPath = Paths.get("");
-        String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
-        String select = "SELECT *\n" +
-                "FROM user\n" +
-                "WHERE username = " + username + "AND organization = " + organization + ";";
-        try (Connection conn = DriverManager.getConnection(_path);
-             Statement stmt = conn.createStatement()) {
-             ResultSet user = stmt.executeQuery(select);
-             if(user.next() == true){
-                return user;
-             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    private OrganizationUser getUserByOrganization(String username, Organizations organization) {
+
+        SQLModel sql = SQLModel.getInstance();
+
+        String[] fields = new String[TblFields.enumDict.get("user").size()];
+        fields[0] = username;
+        fields[3] = organization.toString();
+
+        boolean shouldGetAllFields = true;
+        String userStrRep = sql.selectFromTable(Tables.TBL_USERS, fields, shouldGetAllFields);
+
+        return new OrganizationUser(userStrRep);
     }
 
     private void setNextEventID(){
@@ -136,7 +125,7 @@ public class Event{
             while (participantsRows.next()) {
                 String username = participantsRows.getString("participateUsername");
                 OrganizationUser user = getUser(username);
-                // if admin or bigger rank should have write permission
+                // if admin or higher rank should have write permission
                 if(user != null) {
                     if (user.getRank() == -1 || user.getRank() >= inCharge.get(user.getOrganization()).getRank()) {
                         participants.put(username, Permission.write);
@@ -151,28 +140,18 @@ public class Event{
     }
 
     private OrganizationUser getUser(String username) {
-        //TO DO the path shuld come from sql singleton
-        Path currentPath = Paths.get("");
-        String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
-        String select = "SELECT *\n" +
-                "FROM user\n" +
-                "WHERE username = " + username + ";";
-        try (Connection conn = DriverManager.getConnection(_path);
-             Statement stmt = conn.createStatement()) {
-             ResultSet user = stmt.executeQuery(select);
-             if(user.next()) {
-                 return new OrganizationUser(user.getString("username"), user.getString("psw"),
-                         user.getString("organization"), user.getString("rank"),
-                         user.getString("accountStatus"), user.getString("email"), user.getString("warnings"));
-             }
+        SQLModel sql = SQLModel.getInstance();
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        String[] fields = new String[TblFields.enumDict.get("user").size()];
+        fields[0] = username;
+
+        boolean shouldGetAllFields = true;
+        String userStrRep = sql.selectFromTable(Tables.TBL_USERS, fields, shouldGetAllFields);
+
+        return new OrganizationUser(userStrRep);
     }
 
-    private void setUpdates(){
+    private void AddNewUpdate(){
         //TO DO the path should come from sql singleton
         Path currentPath = Paths.get("");
         String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
