@@ -172,7 +172,7 @@ public class Event{
         return null;
     }
 
-    private setUpdates(){
+    private void setUpdates(){
         //TO DO the path should come from sql singleton
         Path currentPath = Paths.get("");
         String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
@@ -189,6 +189,5 @@ public class Event{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
     }
 }
