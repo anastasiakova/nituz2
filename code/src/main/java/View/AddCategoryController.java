@@ -1,5 +1,7 @@
 package View;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -24,6 +26,10 @@ public class AddCategoryController {
             errorAlert.setHeaderText("Category already inside! ");
             errorAlert.setContentText("the category you just made is alredy in the list :)");
             errorAlert.showAndWait();
+
+            ObservableList<String> items = FXCollections.observableArrayList (
+                    "A", "B", "C", "D");
+            cetgoriesTable.setItems(items);
         }
         System.out.println(categories);
     }
