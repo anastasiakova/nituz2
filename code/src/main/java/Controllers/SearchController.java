@@ -3,6 +3,8 @@ package Controllers;
 import Model.SQLModel;
 import Model.Tables;
 import Model.TblFields;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +29,11 @@ public class SearchController {
         return user;
     }
 
-    public List<String> getAllCategories(){
+
+    public ObservableList<String> getAllCategories(){
         String[] fields = new String[TblFields.enumDict.get("categories").size()];
         String answer = sqlModel.selectFromTable(Tables.categories, fields, true);
-        return Arrays.asList(answer.split("\n"));
+        return FXCollections.observableList(Arrays.asList(answer.split(", \n")));
     }
 
     public List<String> getMyEvents(String username){
