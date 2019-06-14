@@ -9,9 +9,9 @@ public class CreateController {
     SQLModel sqlModel = SQLModel.getInstance();
 
     public void CreateEvent(String logedIn, String headline, ArrayList<Category> categories,
-                            HashMap<String, String> inCharge){
-        Event newEvent = new Event(logedIn, headline, categories,inCharge);
-
+                            HashMap<String, String> inCharge, String initUpdate){
+        Event newEvent = new Event(logedIn, headline, categories,inCharge, initUpdate);
+        newEvent.insertParticipantsToDb();
         sqlModel.insertRecordToTable(newEvent);
     }
 

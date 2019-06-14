@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Event implements ISQLable{
+public class Event implements ISQLable {
     private int id;
     private String title;
     private Status status;
@@ -19,17 +19,18 @@ public class Event implements ISQLable{
     private HashMap<String, Permission> participants;
     private EOCUser creator;
     private LinkedList<Update> updates = new LinkedList<>();
+    private String initialUpdate;
 
     private static String primaryKeyName = "eventId";
     private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
     private String tableFields = "event("
-            + TblFields.enumDict.get("event").get(0) +
-            TblFields.enumDict.get("event").get(1) +
-            TblFields.enumDict.get("event").get(2) +
-            TblFields.enumDict.get("event").get(3) +
-            TblFields.enumDict.get("event").get(4) +
-            TblFields.enumDict.get("event").get(5) +
-            TblFields.enumDict.get("event").get(6) +
+            + TblFields.enumDict.get("event").get(0) + ", " +
+            TblFields.enumDict.get("event").get(1) + ", " +
+            TblFields.enumDict.get("event").get(2) + ", " +
+            TblFields.enumDict.get("event").get(3) + ", " +
+            TblFields.enumDict.get("event").get(4) + ", " +
+            TblFields.enumDict.get("event").get(5) + ", " +
+            TblFields.enumDict.get("event").get(6) + ", " +
             TblFields.enumDict.get("event").get(7) +
             ") VALUES(?,?,?,?,?,?,?,?)";
 
@@ -50,9 +51,12 @@ public class Event implements ISQLable{
             pstmt.setString(2, this.getTitle());
             pstmt.setString(3, this.getDate());
             pstmt.setString(4, this.getStatus().toString());
-            pstmt.setString(5, this.getInCharge().get(Organizations.Police).getUsername());
-            pstmt.setString(6, this.getInCharge().get(Organizations.EMS).getUsername());
-            pstmt.setString(7, this.getInCharge().get(Organizations.FD).getUsername());
+            pstmt.setString(5, this.getInCharge().get(Organizations.Police) == null ? "" : this.getInCharge().get(Organizations.Police).getUsername());
+            //pstmt.setString(5, this.getInCharge().get(Organizations.Police).getUsername());
+            pstmt.setString(6, this.getInCharge().get(Organizations.EMS) == null ? "" : this.getInCharge().get(Organizations.EMS).getUsername());
+            //pstmt.setString(6, this.getInCharge().get(Organizations.EMS).getUsername());
+            pstmt.setString(7, this.getInCharge().get(Organizations.FD) == null ? "" : this.getInCharge().get(Organizations.FD).getUsername());
+            //pstmt.setString(7, this.getInCharge().get(Organizations.FD).getUsername());
             pstmt.setString(8, this.getCreator().getUsername());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -86,25 +90,34 @@ public class Event implements ISQLable{
         inTreatment,
         treatmentOver
     }
-    enum Permission{
+
+    enum Permission {
         read,
         write
     }
+
     //    when user creates the event
     public Event(String creator, String headline, ArrayList<Category> categories,
-                 HashMap<String, String> inCharge){
+                 HashMap<String, String> inCharge, String initialUpdate) {
         this.title = headline;
         this.status = Status.inTreatment;
         this.date = new Date();
         this.categories = categories;
         this.creator = getEOCUser(creator);
+        this.initialUpdate = initialUpdate;
 
         String organization, username;
-
+        this.inCharge = new HashMap<>();
+        this.participants =new HashMap<>();
         for (HashMap.Entry<String, String> entry : inCharge.entrySet()) {
             organization = entry.getKey();
             username = entry.getValue();
-            this.inCharge.put(Organizations.valueOf(organization), getOrganizationUser(username));
+            if (!username.equals("")) {
+                Organizations o = Organizations.valueOf(organization);
+                OrganizationUser ou = getOrganizationUser(username);
+                this.inCharge.put(o, ou);
+            }
+
         }
         populateParticipants();
         this.id = currentMaxId + 1;
@@ -121,7 +134,7 @@ public class Event implements ISQLable{
         for (String usr : userStrRep) {
             boolean isUserOrganizationParticipating = inCharge.get(Organizations.valueOf(usr.split(", ")[3])) != null;
 
-            if(isUserOrganizationParticipating){
+            if (isUserOrganizationParticipating) {
                 OrganizationUser userInChargeInOrganization = inCharge.get(Organizations.valueOf(usr.split(", ")[3]));
                 int userRank = Integer.parseInt(usr.split(", ")[4]);
                 String username = usr.split(", ")[0];
@@ -133,7 +146,7 @@ public class Event implements ISQLable{
         }
     }
 
-    public void insertParticipantsToDb(){
+    public void insertParticipantsToDb() {
         //Get current participants from db
         SQLModel sql = SQLModel.getInstance();
 
@@ -148,7 +161,7 @@ public class Event implements ISQLable{
 
         for (String participant : participantsStrRep) {
             String username = participant.split(", ")[1];
-            if(addedParticipants.containsKey(username)){
+            if (addedParticipants.containsKey(username)) {
                 //remove participants that already appear on disk
                 addedParticipants.remove(username);
             }
@@ -190,7 +203,7 @@ public class Event implements ISQLable{
         addInCharge((String) splittedEvent[4], Organizations.Police);
         addInCharge((String) splittedEvent[5], Organizations.EMS);
         addInCharge((String) splittedEvent[6], Organizations.FD);
-        addCreator((String)splittedEvent[7]);
+        addCreator((String) splittedEvent[7]);
         loadParticipantsFromDb();
         loadAllUpdatesFromDb();
     }
@@ -201,7 +214,7 @@ public class Event implements ISQLable{
         inCharge.put(organization, user);
     }
 
-    private void addCreator(String username){
+    private void addCreator(String username) {
         SQLModel sql = SQLModel.getInstance();
 
         String[] fields = new String[TblFields.enumDict.get("user").size()];
@@ -238,7 +251,7 @@ public class Event implements ISQLable{
             String username = participantsStrRep[i].split(", ")[1];
             OrganizationUser user = getOrganizationUser(username);
             // if admin or higher rank should have write permission
-            if(user != null) {
+            if (user != null) {
                 if (user.getRank() == -1 || user.getRank() >= inCharge.get(user.getOrganization()).getRank()) {
                     participants.put(username, Permission.write);
                 } else {
@@ -249,7 +262,7 @@ public class Event implements ISQLable{
     }
 
     private OrganizationUser getOrganizationUser(String username) {
-        if(username == ""){
+        if (username.equals("") || username == null) {
             return null;
         }
 
@@ -263,11 +276,11 @@ public class Event implements ISQLable{
         return new OrganizationUser(userStrRep);
     }
 
-    public void addNewUpdate(Update updateToAdd){
+    public void addNewUpdate(Update updateToAdd) {
         updates.addFirst(updateToAdd);
     }
 
-    private void loadAllUpdatesFromDb(){
+    private void loadAllUpdatesFromDb() {
         SQLModel sql = SQLModel.getInstance();
 
         String[] fields = new String[TblFields.enumDict.get("updates").size()];

@@ -2,16 +2,16 @@ package View;
 
 import Controllers.CreateController;
 import Controllers.LogedInController;
+import Controllers.SearchController;
 import Model.Category;
 import Model.EOCUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
@@ -32,19 +32,38 @@ public class CreateEventController {
     public TextArea initialUpdate;
     public Button createEvent;
     public Button backButton;
+    public javafx.scene.control.ListView categoriesLostView;
     public String publisher; //understand from where to get it
     public ArrayList<Category> categories;
     public CreateController createController;
     public LogedInController logedInController;
+    public SearchController searchController;
+    public ObservableList<String> categoriesFormDB;
 
 
     public CreateEventController() {
 
     }
 
-    public void SetControllers(LogedInController logedInController, CreateController createController){
+    public void SetControllers(LogedInController logedInController, CreateController createController, SearchController searchController){
+        this.categories = new ArrayList<>();
         this.logedInController = logedInController;
         this.createController = createController;
+        this.searchController = searchController;
+        init();
+    }
+
+    public void init(){
+        categoriesFormDB = searchController.getAllCategories();
+        categoriesLostView.setItems(categoriesFormDB);
+        categoriesLostView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                categories.add(new Category(categoriesLostView.getSelectionModel().getSelectedItem().toString()));
+                System.out.println("clicked on " + categoriesLostView.getSelectionModel().getSelectedItem());
+            }
+        });
     }
 
     public void createEventAction() throws ParseException {
@@ -69,7 +88,7 @@ public class CreateEventController {
             inCharge.put("Police", policeName);
             inCharge.put("EMS", EMSName);
             inCharge.put("FD", FDName);
-            this.createController.CreateEvent(publisher, headLine, categories, inCharge);
+            this.createController.CreateEvent(publisher, headLine, categories, inCharge, initUpdate);
 
         }
 

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class EOCUser extends User {
 
     public EOCUser(String userString){
-        this(userString.split(","));
+        this(userString.split(", "));
     }
 
     @Override

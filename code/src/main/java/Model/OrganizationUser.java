@@ -7,7 +7,7 @@ public class OrganizationUser extends User {
     private Organizations orgName;
 
     public OrganizationUser(String userString){
-        this(userString.split(","));
+        this(userString.split(", "));
     }
 
 

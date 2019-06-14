@@ -12,13 +12,13 @@ public abstract class User implements ISQLable {
     private String email;
 
     private String tableFields = "user("
-            + TblFields.enumDict.get("user").get(0) +
-            TblFields.enumDict.get("user").get(1) +
-            TblFields.enumDict.get("user").get(2) +
-            TblFields.enumDict.get("user").get(3) +
-            TblFields.enumDict.get("user").get(4) +
-            TblFields.enumDict.get("user").get(5) +
-            TblFields.enumDict.get("user").get(6) +
+            + TblFields.enumDict.get("user").get(0) + ", " +
+            TblFields.enumDict.get("user").get(1) + ", " +
+            TblFields.enumDict.get("user").get(2) + ", " +
+            TblFields.enumDict.get("user").get(3) + ", " +
+            TblFields.enumDict.get("user").get(4) + ", " +
+            TblFields.enumDict.get("user").get(5) + ", " +
+            TblFields.enumDict.get("user").get(6) + ", " +
             TblFields.enumDict.get("user").get(7) +
             ") VALUES(?,?,?,?,?,?,?,?)";
 

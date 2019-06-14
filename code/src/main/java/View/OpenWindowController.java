@@ -127,7 +127,7 @@ public class OpenWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("CreateEvent.fxml").openStream());
         CreateEventController addCategoryController = fxmlLoader.getController();
-        addCategoryController.SetControllers(this.logedInController, this.createController);
+        addCategoryController.SetControllers(this.logedInController, this.createController, this.searchController);
         Scene scene = new Scene(root, 450, 670);
         stage.setScene(scene);
         stage.show();
