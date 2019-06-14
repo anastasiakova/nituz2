@@ -1,11 +1,7 @@
 package Controllers;
-
-//import Model.Event;
+import Model.Event;
 import Model.SQLModel;
-import Model.Tables;
-import Model.User;
-
-import java.util.Date;
+import Model.Update;
 
 public class CreateController {
 
@@ -15,4 +11,14 @@ public class CreateController {
 //        Event newEvent = new Event(headline, initUpdate, Police, EMS, FD, publishTime);
 //        sqlModel.insertRecordToTable(Tables.TBL_USERS.toString().toLowerCase(), newUser);
 //    }
+
+    public void createUpdate(String username, Event event, String description){
+        //create Update
+        Update update =  new Update(username, description, event.getId());
+        //add to event
+        event.addNewUpdate(update);
+        //write to db
+
+    }
+
 }
