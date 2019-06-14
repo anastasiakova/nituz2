@@ -4,6 +4,7 @@ import Controllers.CreateController;
 import Controllers.LogedInController;
 import Controllers.SearchController;
 import Model.Event;
+import Model.Permission;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,14 +28,13 @@ public class WriteUpdateController {
     String selectedEventName = "";
 
 
-    public void SetControllers(LogedInController logedInController, CreateController createController, SearchController searchController){
+    public void SetControllers(LogedInController logedInController, CreateController createController, SearchController searchController) {
         this.logedInController = logedInController;
         this.createController = createController;
         this.searchController = searchController;
         eventsData = searchController.getMyEvents(logedInController.getUserNameFromUserAsStripAndCleanString());
+        //if (eventsData != null) {
         events.setItems(eventsData);
-
-
         events.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -42,20 +42,30 @@ public class WriteUpdateController {
                 selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
             }
         });
+        //}
     }
 
-    public void sendUpdateAction(ActionEvent actionEvent){
+    public void sendUpdateAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        if(description.getText().equals("") || description == null) {
+        if (description.getText().equals("") || description == null) {
             alert.setContentText("Please enter description for this update");
             alert.show();
         }// TODO add check for event
-        else{
+        else {
             this.username = logedInController.getUserNameFromUserAsStripAndCleanString();
             this.updateDescription = description.getText();
-
-            Event event = new Event(this.searchController.getSpecificEvent(selectedEventName));
-            createController.createUpdate(this.username, event, this.updateDescription);
+            if (!selectedEventName.equals("")) {
+                Event event = new Event(this.searchController.getSpecificEvent(selectedEventName));
+                if (event.getParticipants().get(this.username) == Permission.write)
+                    createController.createUpdate(this.username, event, this.updateDescription);
+                else {
+                    alert.setContentText("No Write permissions were given for this event.");
+                    alert.show();
+                }
+            } else {
+                alert.setContentText("No event was chosen");
+                alert.show();
+            }
         }
     }
 }

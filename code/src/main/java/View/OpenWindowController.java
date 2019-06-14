@@ -140,8 +140,6 @@ public class OpenWindowController {
         Parent root = fxmlLoader.load(getClass().getResource("WriteUpdate.fxml").openStream());
         WriteUpdateController updateController = fxmlLoader.getController();
         updateController.SetControllers(this.logedInController, this.createController, this.searchController);
-        //updateController.updateTextFields(userName,password);
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
         //window.getScene().getStylesheets().add("/regPages.css");

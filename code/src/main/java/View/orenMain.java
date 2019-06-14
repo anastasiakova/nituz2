@@ -25,11 +25,10 @@ public class orenMain extends Application {
             SQLModel sqlModel = SQLModel.getInstance();
             FXMLLoader fxmlControl = new FXMLLoader();
             Parent root = fxmlControl.load(getClass().getResource(("OpenWindow.fxml")).openStream());
-            primaryStage.setTitle("VACATION 4 U ");
+            primaryStage.setTitle("Emer-Agency");
             OpenWindowController view = fxmlControl.getController();
             view.initButtons();
-            primaryStage.setScene(new Scene(root, 950, 620));
-            //primaryStage.getScene().getStylesheets().add("/openWindowCss.css");
+            primaryStage.setScene(new Scene(root, 600, 300));
             primaryStage.show();
 
 

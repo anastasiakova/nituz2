@@ -16,10 +16,11 @@ public class Update implements ISQLable{
     private int event;
 
     private static String primaryKeyName = "updateId";
-    private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
+    private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.updates, primaryKeyName);
 
     public Update(String username, String description, int eventId) {
-            this.id = currentMaxId == 0 ? 0 : currentMaxId + 1;
+            //this.id = currentMaxId == 0 ? 0 :
+            this.id = currentMaxId + 1;
             currentMaxId ++;
             this.description = description;
             this.publishDate = new Date();

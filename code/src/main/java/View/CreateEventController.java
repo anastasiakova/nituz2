@@ -89,6 +89,7 @@ public class CreateEventController {
             inCharge.put("EMS", EMSName);
             inCharge.put("FD", FDName);
             this.createController.CreateEvent(publisher, headLine, categories, inCharge, initUpdate);
+
             Alert goodAlert = new Alert(Alert.AlertType.CONFIRMATION);
             goodAlert.setContentText("Your Event Has Been Created");
             goodAlert.show();
