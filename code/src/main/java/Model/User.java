@@ -91,7 +91,7 @@ public abstract class User implements ISQLable {
 
     @Override
     public String getPrimaryKeyName() {
-        return username;
+        return "username";
     }
 
     @Override
