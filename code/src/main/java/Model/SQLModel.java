@@ -127,13 +127,13 @@ public class SQLModel {
     }
 
     public void initUpdateTbl(){
+        //"updateId","updateEventId", "updateDate", "publisher", "description"
         String createStatement = "CREATE TABLE IF NOT EXISTS updates (\n" +
                 TblFields.enumDict.get("updates").get(0) + " INTEGER NOT NULL PRIMARY KEY,\n" +
-                TblFields.enumDict.get("updates").get(1) + " text NOT NULL,\n" +
+                TblFields.enumDict.get("updates").get(1) + " INTEGER NOT NULL,\n" +
                 TblFields.enumDict.get("updates").get(2) + " text NOT NULL,\n" +
                 TblFields.enumDict.get("updates").get(3) + " text NOT NULL,\n" +
-                TblFields.enumDict.get("updates").get(4) + " INTEGER NOT NULL,\n" +
-                TblFields.enumDict.get("updates").get(5) + " INTEGER\n" +
+                TblFields.enumDict.get("updates").get(4) + " text NOT NULL\n" +
                 ");";
         try (Connection conn = DriverManager.getConnection(_path);
              Statement stmt = conn.createStatement()) {
