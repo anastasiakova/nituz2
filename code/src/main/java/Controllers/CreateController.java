@@ -19,7 +19,7 @@ public class CreateController {
         sqlModel.insertRecordToTable(update);
     }
 
-    public void insertToTable(String insertValue){
+    public void insertCategoryToTable(String insertValue){
         ISQLable newCategory = new Category(insertValue);
         sqlModel.insertRecordToTable(newCategory);
     }

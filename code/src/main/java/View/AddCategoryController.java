@@ -28,7 +28,7 @@ public class AddCategoryController {
     }
     public void addCategory(ActionEvent actionEvent) {
         if (!categories.contains(categoryTextField.getText())) {
-            cc.insertToTable(categoryTextField.getText());
+            cc.insertCategoryToTable(categoryTextField.getText());
             init();
         }
         else {
