@@ -149,11 +149,12 @@ public class Event implements ISQLable{
         for (String participant : participantsStrRep) {
             String username = participant.split(", ")[1];
             if(addedParticipants.containsKey(username)){
-                //remove participants from
+                //remove participants that already appear on disk
                 addedParticipants.remove(username);
             }
         }
 
+        //write only new participants to disk
         for (HashMap.Entry<String, Permission> entry : addedParticipants.entrySet()) {
             sql.insertParticipantsToDb(Integer.toString(getId()), entry.getKey());
         }
