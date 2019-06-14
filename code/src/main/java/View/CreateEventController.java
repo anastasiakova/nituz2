@@ -1,6 +1,7 @@
 package View;
 
 import Controllers.CreateController;
+import Controllers.LogedInController;
 import Model.Category;
 import Model.EOCUser;
 import javafx.collections.FXCollections;
@@ -14,8 +15,10 @@ import org.controlsfx.control.CheckComboBox;
 
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class CreateEventController {
@@ -26,13 +29,21 @@ public class CreateEventController {
     public TextField FDPart;
     public TextArea initialUpdate;
     public Button createEvent;
-    public EOCUser publisher; //understand from where to get it
-    public Category[] categories;
+    public String publisher; //understand from where to get it
+    public ArrayList<Category> categories;
     public CreateController createController;
+    public LogedInController logedInController;
 
 
     public CreateEventController() {
+        policePart.setText("");
+        EMSPart.setText("");
+        FDPart.setText("");
+    }
 
+    public void SetControllers(LogedInController logedInController, CreateController createController){
+        this.logedInController = logedInController;
+        this.createController = createController;
     }
 
     public void createEventAction() throws ParseException {
@@ -47,13 +58,17 @@ public class CreateEventController {
             alert.setContentText("Please enter at least one candidate");
             alert.show();
         }else {
+            this.publisher = logedInController.getUserNameFromUserAsStripAndCleanString();
             String headLine = headline.getText();
             String initUpdate = initialUpdate.getText();
             String policeName = policePart.getText();
             String EMSName = EMSPart.getText();
             String FDName = FDPart.getText();
-            this.createController.CreateEvent(userText.getText(), passText.getText(), date, fNameText.getText()
-                    , lNameText.getText(), cityText.getText(), idNumber.getText());
+            HashMap<String, String> inCharge = new HashMap<String, String>();
+            inCharge.put("Police", policeName);
+            inCharge.put("EMS", EMSName);
+            inCharge.put("FD", FDName);
+            this.createController.CreateEvent(publisher, headLine, categories, inCharge);
 
         }
 

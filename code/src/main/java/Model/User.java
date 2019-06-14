@@ -32,9 +32,6 @@ public abstract class User implements ISQLable {
         locked
     }
 
-    public User(String fields) {
-
-    }
 
     public User(String username, String password, String name, int rank, String accountStatus, String email, int warnings) {
         this.username = username;

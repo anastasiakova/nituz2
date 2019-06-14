@@ -32,7 +32,7 @@
         </rowConstraints>
          <children>
             <TextField fx:id="headline" GridPane.columnIndex="1" />
-            <TextField fx:id="policePart" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
             <Label prefHeight="17.0" prefWidth="117.0" text="Headline:">
                <font>
                   <Font name="Calibri" size="17.0" />
@@ -57,6 +57,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
+             <TextField fx:id="policePart" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="EMSPart" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="FDPart" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>

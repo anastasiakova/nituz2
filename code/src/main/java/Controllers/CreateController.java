@@ -8,7 +8,7 @@ public class CreateController {
 
     SQLModel sqlModel = SQLModel.getInstance();
 
-    public void CreateEvent(EOCUser logedIn, String headline, ArrayList<Category> categories,
+    public void CreateEvent(String logedIn, String headline, ArrayList<Category> categories,
                             HashMap<String, String> inCharge){
 //        Event newEvent = new Event(headline, initUpdate, Police, EMS, FD, publishTime);
 //        sqlModel.insertRecordToTable(Tables.TBL_USERS.toString().toLowerCase(), newUser);
