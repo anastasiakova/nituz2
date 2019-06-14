@@ -21,12 +21,17 @@ public class TblFields {
 
         enumList = Arrays.asList("participateEventId", "participateUsername");
         enumDict.put("eventAndParticipate", enumList);
+        //TODO both fields should be primary key
 
         enumList = Arrays.asList("feedbackEventId", "feedbacker", "feedbackee", "feedback");
         enumDict.put("feedback", enumList);
 
-        enumList = Arrays.asList("updateId","event", "updateDate", "updater", "updateEventId", "lastUpdateId");
+        enumList = Arrays.asList("updateId","event", "updateDate", "publisher", "updateEventId", "lastUpdateId");
         enumDict.put("updates", enumList);
+        //TODO add description.
+        //TODO remove updateEventId
+        //TODO remove lastUpdateID
+        //TODO change event to Int, not text
 
         enumList = Arrays.asList("updateVersionId", "version", "description");
         enumDict.put("updateVersion", enumList);
