@@ -226,7 +226,8 @@ public class SQLModel {
                 return selectFromTbl("user", fields, "user", shouldGetAll);
             case categories:
                 return selectFromTbl("categories", fields, "categories", shouldGetAll);
-
+            case eventAndParticipate:
+                return selectFromTbl("eventAndParticipate", fields, "eventAndParticipate", shouldGetAll);
             default:
                 return "";
         }
