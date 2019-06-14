@@ -159,23 +159,6 @@ public class Event implements ISQLable{
         return new OrganizationUser(userStrRep);
     }
 
-    private static int getCurrentMaxEventID(){
-        //TODO the path should come from sql singleton
-        Path currentPath = Paths.get("");
-        String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
-        String select = "SELECT eventId\n" +
-                "FROM event\n" +
-                "WHERE eventId = (SELECT COALESCE(MAX(eventId),0) FROM event);"; // COALESCE(MAX(eventId),0) deals with the case where there are no entries in event table
-        try (Connection conn = DriverManager.getConnection(_path);
-             Statement stmt = conn.createStatement()) {
-            String id = stmt.executeQuery(select).getString("eventId");
-            return Integer.parseInt(id);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
-
     private void loadParticipantsFromDb() {
 
         SQLModel sql = SQLModel.getInstance();

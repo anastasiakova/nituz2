@@ -18,23 +18,6 @@ public class Update implements ISQLable{
     private static String primaryKeyName = "updateId";
     private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
 
-    private static int getCurrentMaxUpdateID() {
-        //TODO the path should come from sql singleton
-        Path currentPath = Paths.get("");
-        String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
-        String select = "SELECT updateId\n" +
-                "FROM updates\n" +
-                "WHERE updateId = (SELECT COALESCE(MAX(updateId),0) FROM updates);"; // COALESCE(MAX(eventId),0) deals with the case where there are no entries in event table
-        try (Connection conn = DriverManager.getConnection(_path);
-             Statement stmt = conn.createStatement()) {
-             String id = stmt.executeQuery(select).getString("updateId");
-             return Integer.parseInt(id);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
-
     public Update(String username, String description, int eventId) {
             this.id = currentMaxId == 0 ? 0 : currentMaxId + 1;
             currentMaxId ++;
