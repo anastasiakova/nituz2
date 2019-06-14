@@ -41,7 +41,7 @@ public class OrganizationUser extends User {
                 "'," + TblFields.enumDict.get("user").get(4) + "='" + this.getRank() +
                 "'," + TblFields.enumDict.get("user").get(5) + "='" + this.getAccountStatus() +
                 "'," + TblFields.enumDict.get("user").get(6) + "='" + this.getEmail() +
-                "'," + TblFields.enumDict.get("user").get(6) + "='" + this.getWarnings() +
+                "'," + TblFields.enumDict.get("user").get(7) + "='" + this.getWarnings() +
                 "'\n";
     }
 

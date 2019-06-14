@@ -280,7 +280,19 @@ public class SQLModel {
         }
     }
 
-
+    public int getMaxID(Tables table, String fieldName){
+        String select = "SELECT " + fieldName + "\n" +
+                "FROM " + table.name() + "\n" +
+                "WHERE " + fieldName + " = (SELECT COALESCE(MAX(" + fieldName + "),0) FROM " + table.name() + ");"; // COALESCE(MAX(eventId),0) deals with the case where there are no entries in event table
+        try (Connection conn = DriverManager.getConnection(_path);
+             Statement stmt = conn.createStatement()) {
+            String id = stmt.executeQuery(select).getString(fieldName);
+            return Integer.parseInt(id);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
 
 
 }

@@ -14,24 +14,9 @@ public class Update implements ISQLable{
     private Date publishDate;
     private String publisherUsername;
     private int event;
-    private static int currentMaxId = getCurrentMaxUpdateID();
 
-    private static int getCurrentMaxUpdateID() {
-        //TODO the path should come from sql singleton
-        Path currentPath = Paths.get("");
-        String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
-        String select = "SELECT updateId\n" +
-                "FROM updates\n" +
-                "WHERE updateId = (SELECT COALESCE(MAX(updateId),0) FROM updates);"; // COALESCE(MAX(eventId),0) deals with the case where there are no entries in event table
-        try (Connection conn = DriverManager.getConnection(_path);
-             Statement stmt = conn.createStatement()) {
-             String id = stmt.executeQuery(select).getString("updateId");
-             return Integer.parseInt(id);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
+    private static String primaryKeyName = "updateId";
+    private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
 
     public Update(String username, String description, int eventId) {
             this.id = currentMaxId == 0 ? 0 : currentMaxId + 1;
@@ -64,7 +49,7 @@ public class Update implements ISQLable{
 
     @Override
     public String getPrimaryKeyName() {
-        return "updateId";
+        return primaryKeyName;
     }
 
     public String getPuplishDateForQuery() {
