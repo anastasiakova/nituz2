@@ -52,10 +52,8 @@ public class CreateEventController {
             String policeName = policePart.getText();
             String EMSName = EMSPart.getText();
             String FDName = FDPart.getText();
-            Calendar calendar = Calendar.getInstance();
-            Date publishTime = calendar.getTime();
-//            this.createController.CreateUser(userText.getText(), passText.getText(), date, fNameText.getText()
-//                    , lNameText.getText(), cityText.getText(), idNumber.getText());
+            this.createController.CreateEvent(userText.getText(), passText.getText(), date, fNameText.getText()
+                    , lNameText.getText(), cityText.getText(), idNumber.getText());
 
         }
 

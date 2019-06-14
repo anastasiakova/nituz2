@@ -93,15 +93,15 @@ public class Event implements ISQLable{
         write
     }
     //    when user creates the event
-    public Event(EOCUser creator, String title, ArrayList<Category> categories, HashMap<Organizations, OrganizationUser> inCharge){
+    public Event(EOCUser logedIn, String headline, ArrayList<Category> categories,
+                 HashMap<String, String> inCharge){
         this.title = title;
         this.status = Status.inTreatment;
         this.date = new Date();
         this.categories = categories;
         this.creator = creator;
-        this.inCharge = inCharge;
+        //this.inCharge = inCharge;
         this.id = currentMaxId + 1;
-
         currentMaxId++;
     }
 

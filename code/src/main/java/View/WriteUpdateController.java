@@ -32,6 +32,7 @@ public class WriteUpdateController {
         else{
             this.username = logedInController.getUserNameFromUserAsStripAndCleanString();
             this.updateDescription = description.getText();
+
         }
     }
 }
