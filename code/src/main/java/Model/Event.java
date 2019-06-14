@@ -200,6 +200,10 @@ public class Event implements ISQLable{
     }
 
     private OrganizationUser getOrganizationUser(String username) {
+        if(username == ""){
+            return null;
+        }
+
         SQLModel sql = SQLModel.getInstance();
 
         String[] fields = new String[TblFields.enumDict.get("user").size()];
