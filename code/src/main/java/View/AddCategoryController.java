@@ -5,8 +5,13 @@ import Controllers.SearchController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +28,21 @@ public class AddCategoryController {
     public  SearchController sc = new SearchController();
     public ObservableList<String> categories = sc.getAllCategories();
 
+
     public void init(){
+
         cetgoriesTable.setItems(categories);
     }
     public void addCategory(ActionEvent actionEvent) {
         if (!categories.contains(categoryTextField.getText())) {
             cc.insertCategoryToTable(categoryTextField.getText());
-            init();
+            cetgoriesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
+                }
+            });
         }
         else {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -39,5 +52,10 @@ public class AddCategoryController {
 
         }
         System.out.println(categories);
+    }
+
+    public void closeWind(ActionEvent actionEvent) {
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.close();
     }
 }
