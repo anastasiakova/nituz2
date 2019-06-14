@@ -29,10 +29,14 @@ public class AddCategoryController {
     public  SearchController sc;
     public ObservableList<String> categories;
 
-
+    public void SetControllers(SearchController searchController, CreateController createController) {
+        this.sc = searchController;
+        this.cc = createController;
+        init();
+    }
 
     public void init(){
-
+        categories = sc.getAllCategories();
         cetgoriesTable.setItems(categories);
         cetgoriesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -53,6 +57,7 @@ public class AddCategoryController {
             errorAlert.showAndWait();
 
         }
+        init();
         System.out.println(categories);
     }
 
@@ -61,17 +66,7 @@ public class AddCategoryController {
         stage.close();
     }
 
-    public void SetControllers(SearchController searchController, CreateController createController) {
-        this.sc = searchController;
-        this.cc = createController;
-        categories = sc.getAllCategories();
-        cetgoriesTable.setItems(categories);
-        cetgoriesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
-            }
-        });
-    }
+
+
 }

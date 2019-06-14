@@ -3,6 +3,8 @@ package View;
 import Controllers.CreateController;
 import Controllers.LogedInController;
 import Controllers.SearchController;
+import Model.EOCUser;
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,6 +27,9 @@ public class OpenWindowController {
     public TextField passText;
     public Button loginButton;
     public Button logOutButton;
+    public Button createEventButton;
+    public Button writeUpdateButton;
+    public Button addCategoryButton;
     public Label welcomeLabel;
     public LogedInController logedInController = new LogedInController();
     public CreateController createController = new CreateController();
@@ -40,7 +45,9 @@ public class OpenWindowController {
     public void initButtons() {
         this.logOutButton.setVisible(false);
         this.welcomeLabel.setVisible(false);
-
+        this.createEventButton.setDisable(true);
+        this.writeUpdateButton.setDisable(true);
+        this.addCategoryButton.setDisable(true);
     }
 
     public void logINButtonAction(ActionEvent actionEvent) {
@@ -53,9 +60,14 @@ public class OpenWindowController {
             //this.logedInController = new LogedInController();
 //            loginSuccessful = searchController.isLoginValid(userText.getText(), passText.getText());
             loginSuccessful = logedInController.tryLogIn(userName, password);
+            User loged = logedInController.loged;
             if (loginSuccessful) {
                 userModeOn = true;
                 loginButtonsMaker();
+                if (loged instanceof EOCUser && loged.getRank() == -1)
+                    this.addCategoryButton.setDisable(false);
+                if (loged instanceof EOCUser)
+                    this.createEventButton.setDisable(false);
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("You Suck!");
@@ -64,6 +76,7 @@ public class OpenWindowController {
 
         }
     }
+
 
     public void loginButtonsMaker() {
         this.userText.setVisible(false);
@@ -74,6 +87,8 @@ public class OpenWindowController {
         this.logOutButton.setVisible(true);
         this.welcomeLabel.setText("Welcome " + userName + "!");
         this.welcomeLabel.setVisible(true);
+        this.writeUpdateButton.setDisable(false);
+
     }
 
     public void logOut(ActionEvent actionEvent) {
@@ -88,8 +103,10 @@ public class OpenWindowController {
         this.welcomeLabel.setVisible(false);
         this.logedInController.deleteUser();
         this.userModeOn = false;
+        this.createEventButton.setDisable(true);
+        this.writeUpdateButton.setDisable(true);
+        this.addCategoryButton.setDisable(true);
     }
-
 
 
     public void addCategory(ActionEvent actionEvent) throws IOException {
@@ -99,21 +116,21 @@ public class OpenWindowController {
         Parent root = fxmlLoader.load(getClass().getResource("AddCategory.fxml").openStream());
         AddCategoryController addCategoryController = fxmlLoader.getController();
         addCategoryController.SetControllers(this.searchController, this.createController);
-        Scene scene = new Scene(root, 500,300);
+        Scene scene = new Scene(root, 500, 300);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void createEvent(ActionEvent actionEvent) {
-//        Stage stage = new Stage();
-//        stage.setTitle("Add Category");
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        Parent root = fxmlLoader.load(getClass().getResource("AddCategory.fxml").openStream());
-//        AddCategoryController addCategoryController = fxmlLoader.getController();
-//        addCategoryController.SetControllers(this.searchController, this.createController);
-//        Scene scene = new Scene(root, 500,300);
-//        stage.setScene(scene);
-//        stage.show();
+    public void createEvent(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Create Event");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("CreateEvent.fxml").openStream());
+        CreateEventController addCategoryController = fxmlLoader.getController();
+        addCategoryController.SetControllers(this.logedInController, this.createController);
+        Scene scene = new Scene(root, 450, 670);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void writeUpdate(ActionEvent actionEvent) throws IOException {
@@ -126,7 +143,7 @@ public class OpenWindowController {
         //updateController.updateTextFields(userName,password);
 
         Scene scene = new Scene(root);
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         //window.getScene().getStylesheets().add("/regPages.css");
         //updateController.init();

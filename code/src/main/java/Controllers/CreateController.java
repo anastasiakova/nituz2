@@ -10,8 +10,9 @@ public class CreateController {
 
     public void CreateEvent(String logedIn, String headline, ArrayList<Category> categories,
                             HashMap<String, String> inCharge){
-//        Event newEvent = new Event(headline, initUpdate, Police, EMS, FD, publishTime);
-//        sqlModel.insertRecordToTable(Tables.TBL_USERS.toString().toLowerCase(), newUser);
+        Event newEvent = new Event(logedIn, headline, categories,inCharge);
+
+        sqlModel.insertRecordToTable(newEvent);
     }
 
     public void createUpdate(String username, Event event, String description){

@@ -4,7 +4,7 @@ import Model.*;
 
 public class LogedInController {
     SQLModel sqlModel;
-    User loged;
+    public User loged;
 
     public LogedInController() {
         this.sqlModel = SQLModel.getInstance();

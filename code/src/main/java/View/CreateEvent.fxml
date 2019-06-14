@@ -11,17 +11,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="659.0" prefWidth="377.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CreateEventController">
+<AnchorPane prefHeight="663.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CreateEventController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="6.0" prefHeight="46.0" prefWidth="362.0" text="Create New Event" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="8.0" prefHeight="46.0" prefWidth="362.0" text="Create New Event" textAlignment="CENTER">
          <font>
             <Font name="Calibri Bold" size="43.0" />
          </font>
       </Label>
-      <GridPane layoutX="14.0" layoutY="77.0" prefHeight="325.0" prefWidth="350.0">
+      <GridPane layoutX="14.0" layoutY="77.0" prefHeight="325.0" prefWidth="423.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="145.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.0" minWidth="10.0" prefWidth="193.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="238.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
@@ -31,7 +31,7 @@
             <RowConstraints maxHeight="60.0" minHeight="9.0" prefHeight="37.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="headline" GridPane.columnIndex="1" />
+            <TextField fx:id="headline" prefHeight="25.0" prefWidth="248.0" GridPane.columnIndex="1" />
 
             <Label prefHeight="17.0" prefWidth="117.0" text="Headline:">
                <font>
@@ -47,7 +47,7 @@
                <font>
                   <Font name="Calibri" size="17.0" />
                </font></Label>
-            <TextArea fx:id="initialUpdate" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="initialUpdate" prefHeight="158.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="EMS Participant:" GridPane.rowIndex="3">
                <font>
                   <Font size="17.0" />
@@ -62,20 +62,25 @@
             <TextField fx:id="FDPart" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="createEvent" alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="605.0" mnemonicParsing="false" onAction="#createEventAction" text="Create" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="159.0">
+      <Button fx:id="createEvent" alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="607.0" mnemonicParsing="false" onAction="#createEventAction" prefHeight="31.0" prefWidth="91.0" text="Create">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="-2.0" layoutY="411.0" prefHeight="21.0" prefWidth="377.0" text="Please enter at least one participant.">
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="411.0" prefHeight="21.0" prefWidth="450.0" text="Please enter at least one participant.">
          <font>
             <Font size="15.0" />
          </font></Label>
-      <ListView layoutX="14.0" layoutY="480.0" prefHeight="108.0" prefWidth="340.0" />
+      <ListView layoutX="14.0" layoutY="480.0" prefHeight="108.0" prefWidth="423.0" />
       <Label layoutX="14.0" layoutY="444.0" text="Categories:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
+      <Button fx:id="backButton" layoutX="260.0" layoutY="607.0" mnemonicParsing="false" onAction="#closeWind" prefHeight="31.0" prefWidth="91.0" text="Back">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
