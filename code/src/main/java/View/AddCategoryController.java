@@ -32,17 +32,17 @@ public class AddCategoryController {
     public void init(){
 
         cetgoriesTable.setItems(categories);
+        cetgoriesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
+            }
+        });
     }
     public void addCategory(ActionEvent actionEvent) {
         if (!categories.contains(categoryTextField.getText())) {
             cc.insertCategoryToTable(categoryTextField.getText());
-            cetgoriesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-                @Override
-                public void handle(MouseEvent event) {
-                    System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
-                }
-            });
         }
         else {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
