@@ -124,13 +124,13 @@ public class OpenWindowController {
         WriteUpdateController updateController = fxmlLoader.getController();
         updateController.SetControllers(this.logedInController, this.createController, this.searchController);
         //updateController.updateTextFields(userName,password);
+        Scene scene = new Scene(root, 500,300);
 
-        Scene scene = new Scene(root);
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
+        stage.setScene(scene);
         //window.getScene().getStylesheets().add("/regPages.css");
         //updateController.init();
 //            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
-        window.show();
+        stage.show();
+
     }
 }

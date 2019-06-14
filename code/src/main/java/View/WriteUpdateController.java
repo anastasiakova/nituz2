@@ -26,6 +26,7 @@ public class WriteUpdateController {
         this.logedInController = logedInController;
         this.createController = createController;
         eventsData = searchController.getMyEvents(logedInController.getUserNameFromUserAsStripAndCleanString());
+
         events.setItems(eventsData);
     }
 
@@ -34,6 +35,7 @@ public class WriteUpdateController {
         if(description.getText().equals("") || description == null) {
             alert.setContentText("Please enter description for this update");
             alert.show();
+
         }// TODO add check for event
         else{
             this.username = logedInController.getUserNameFromUserAsStripAndCleanString();
