@@ -54,7 +54,8 @@ public class WriteUpdateController {
             this.username = logedInController.getUserNameFromUserAsStripAndCleanString();
             this.updateDescription = description.getText();
 
-            createController.createUpdate(this.username,,this.description);
+            Event event = new Event(this.searchController.getSpecificEvent(selectedEventName));
+            createController.createUpdate(this.username,event,this.updateDescription);
 
         }
     }
