@@ -266,4 +266,21 @@ public class SQLModel {
         }
         return res;
     }
+
+
+    public void insertRecordToTable(String table, ISQLable isqLable){
+        String sql = "INSERT INTO " + isqLable.getTableFields();
+
+        try (Connection conn = DriverManager.getConnection(_path);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            isqLable.insertRecordToTable(pstmt);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
 }

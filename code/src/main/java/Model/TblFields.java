@@ -36,7 +36,7 @@ public class TblFields {
         enumDict.put("complaint", enumList);
 
         enumList = Arrays.asList("categoryName");
-        enumDict.put("categories", enumList);
+        enumDict.put("", enumList);
 
         enumList = Arrays.asList("eventCategoryName", "ecEventId");
         enumDict.put("eventAndCategory", enumList);

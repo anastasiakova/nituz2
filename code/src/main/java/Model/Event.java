@@ -24,35 +24,64 @@ public class Event implements ISQLable{
 
 
     private static int currentMaxId = getCurrentMaxEventID();
+    private String tableFields = "event("
+            + TblFields.enumDict.get("event").get(0) +
+            TblFields.enumDict.get("event").get(1) +
+            TblFields.enumDict.get("event").get(2) +
+            TblFields.enumDict.get("event").get(3) +
+            TblFields.enumDict.get("event").get(4) +
+            TblFields.enumDict.get("event").get(5) +
+            TblFields.enumDict.get("event").get(6) +
+            TblFields.enumDict.get("event").get(7) +
+            ") VALUES(?,?,?,?,?,?,?,?)";
 
     @Override
     public String getPrimaryKey() {
-        return null;
+        return String.valueOf(id);
     }
 
     @Override
     public String getPrimaryKeyName() {
-        return null;
+        return "eventId";
     }
 
     @Override
     public void insertRecordToTable(PreparedStatement pstmt) {
-
+        try {
+            pstmt.setString(1, Integer.toString(this.getId()));
+            pstmt.setString(2, this.getTitle());
+            pstmt.setString(3, this.getDate());
+            pstmt.setString(4, this.getStatus().toString());
+            pstmt.setString(5, this.getInCharge().get(Organizations.Police).getUsername());
+            pstmt.setString(6, this.getInCharge().get(Organizations.EMS).getUsername());
+            pstmt.setString(7, this.getInCharge().get(Organizations.FD).getUsername());
+            pstmt.setString(8, this.getCreator().getUsername());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public String getTableFields() {
-        return null;
+        return tableFields;
     }
 
     @Override
     public String getFieldsSQLWithValues() {
-        return null;
+        return TblFields.enumDict.get("event").get(0) + "='" + (this.getId()) +
+                "'," + TblFields.enumDict.get("event").get(1) + "='" + this.getTitle() +
+                "'," + TblFields.enumDict.get("event").get(2) + "='" + this.getDate() +
+                "'," + TblFields.enumDict.get("event").get(3) + "='" + this.getStatus().toString() +
+                "'," + TblFields.enumDict.get("event").get(4) + "='" + this.getInCharge().get(Organizations.Police).getUsername() +
+                "'," + TblFields.enumDict.get("event").get(5) + "='" + this.getInCharge().get(Organizations.EMS).getUsername() +
+                "'," + TblFields.enumDict.get("event").get(6) + "='" + this.getInCharge().get(Organizations.FD).getUsername() +
+                "'," + TblFields.enumDict.get("event").get(7) + "='" + this.getCreator().getUsername() +
+                "'\n";
     }
 
     @Override
     public String getTableName() {
-        return null;
+        return "event";
     }
 
     enum Status {
@@ -96,7 +125,7 @@ public class Event implements ISQLable{
         addInCharge((String) splittedEvent[5], Organizations.EMS);
         addInCharge((String) splittedEvent[6], Organizations.FD);
         addCreator((String)splittedEvent[7]);
-        setParticipants(this.id);
+        loadParticipantsFromDb();
         loadAllUpdatesFromDb();
     }
 
@@ -147,41 +176,26 @@ public class Event implements ISQLable{
         return 0;
     }
 
-    private void setParticipants(int eventId) {
+    private void loadParticipantsFromDb() {
 
         SQLModel sql = SQLModel.getInstance();
 
         String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
         fields[0] = String.valueOf(this.id);
 
-        String[] participantsStrRep = sql.selectFromTable(Tables.user, fields).split("\n");
+        String[] participantsStrRep = sql.selectFromTable(Tables.eventAndParticipate, fields).split("\n");
 
         for (int i = 0; i < participantsStrRep.length; i++) {
-
-        }
-        //TODO the path should come from sql singleton
-        Path currentPath = Paths.get("");
-        String _path = "jdbc:sqlite:" + currentPath.toAbsolutePath().toString() + "\\dataBase.db";
-        String select = "SELECT *\n" +
-                "FROM eventAndParticipate\n" +
-                "WHERE participateEventId = " + eventId + ";";
-        try (Connection conn = DriverManager.getConnection(_path);
-             Statement stmt = conn.createStatement()) {
-            ResultSet participantsRows = stmt.executeQuery(select);
-            while (participantsRows.next()) {
-                String username = participantsRows.getString("participateUsername");
-                OrganizationUser user = getUser(username);
-                // if admin or higher rank should have write permission
-                if(user != null) {
-                    if (user.getRank() == -1 || user.getRank() >= inCharge.get(user.getOrganization()).getRank()) {
-                        participants.put(username, Permission.write);
-                    } else {
-                        participants.put(username, Permission.read);
-                    }
+            String username = participantsStrRep[i].split(", ")[1];
+            OrganizationUser user = getUser(username);
+            // if admin or higher rank should have write permission
+            if(user != null) {
+                if (user.getRank() == -1 || user.getRank() >= inCharge.get(user.getOrganization()).getRank()) {
+                    participants.put(username, Permission.write);
+                } else {
+                    participants.put(username, Permission.read);
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -196,7 +210,7 @@ public class Event implements ISQLable{
         return new OrganizationUser(userStrRep);
     }
 
-    private void AddNewUpdate(Update updateToAdd){
+    public void addNewUpdate(Update updateToAdd){
         updates.addFirst(updateToAdd);
     }
 
@@ -209,8 +223,48 @@ public class Event implements ISQLable{
         String[] updatesStr = sql.selectFromTable(Tables.updates, fields).split("\n");
 
         for (int i = 0; i < updatesStr.length; i++) {
-            AddNewUpdate(new Update(updatesStr[i]));
+            addNewUpdate(new Update(updatesStr[i]));
         }
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getDate() {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+        return formatter.format(this.date);
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public HashMap<Organizations, OrganizationUser> getInCharge() {
+        return inCharge;
+    }
+
+    public HashMap<String, Permission> getParticipants() {
+        return participants;
+    }
+
+    public EOCUser getCreator() {
+        return creator;
+    }
+
+    public LinkedList<Update> getUpdates() {
+        return updates;
+    }
+
+    public static int getCurrentMaxId() {
+        return currentMaxId;
     }
 }
