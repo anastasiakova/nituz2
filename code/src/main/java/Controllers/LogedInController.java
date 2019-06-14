@@ -32,4 +32,8 @@ public class LogedInController {
 
     }
 
+    public void deleteUser(){
+        loged = null;
+    }
+
 }
