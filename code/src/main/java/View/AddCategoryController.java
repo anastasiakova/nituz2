@@ -1,6 +1,7 @@
 package View;
 
 import Controllers.CreateController;
+import Controllers.LogedInController;
 import Controllers.SearchController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +28,7 @@ public class AddCategoryController {
     public CreateController cc = new CreateController();
     public  SearchController sc = new SearchController();
     public ObservableList<String> categories = sc.getAllCategories();
+
 
 
     public void init(){
@@ -57,5 +59,10 @@ public class AddCategoryController {
     public void closeWind(ActionEvent actionEvent) {
         Stage stage = (Stage) backButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void SetControllers(SearchController searchController, CreateController createController) {
+        this.sc = searchController;
+        this.cc = createController;
     }
 }

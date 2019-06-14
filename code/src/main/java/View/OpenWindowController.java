@@ -2,6 +2,7 @@ package View;
 
 import Controllers.CreateController;
 import Controllers.LogedInController;
+import Controllers.SearchController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,6 +28,7 @@ public class OpenWindowController {
     public Label welcomeLabel;
     public LogedInController logedInController = new LogedInController();
     public CreateController createController = new CreateController();
+    public SearchController searchController = new SearchController();
     public boolean userModeOn;
     public Label useLabel;
     public Label passLabel;
@@ -90,8 +92,20 @@ public class OpenWindowController {
 
 
 
-    public void addCategory(ActionEvent actionEvent) {
-        System.out.println("ADD CATEGORY");
+    public void addCategory(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Add Category:");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("AddCategory.fxml").openStream());
+        AddCategoryController addCategoryController = fxmlLoader.getController();
+        addCategoryController.SetControllers(this.searchController, this.createController);
+        Scene scene = new Scene(root);
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        //window.getScene().getStylesheets().add("/regPages.css");
+        //updateController.init();
+//            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+        window.show();
     }
 
     public void createEvent(ActionEvent actionEvent) {
@@ -103,7 +117,7 @@ public class OpenWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("WriteUpdate.fxml").openStream());
         WriteUpdateController updateController = fxmlLoader.getController();
-        updateController.SetControllers(this.logedInController, this.createController);
+        updateController.SetControllers(this.logedInController, this.createController, this.searchController);
         //updateController.updateTextFields(userName,password);
 
         Scene scene = new Scene(root);
