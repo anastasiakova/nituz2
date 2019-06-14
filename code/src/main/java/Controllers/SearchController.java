@@ -33,4 +33,11 @@ public class SearchController {
         return Arrays.asList(answer.split("\n"));
     }
 
+    public List<String> getMyEvents(String username){
+        String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
+        fields[1] = username;
+        String answer = sqlModel.selectFromTable(Tables.eventAndParticipate, fields);
+        return Arrays.asList(answer.split("\n"));
+    }
+
 }
