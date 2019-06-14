@@ -22,8 +22,8 @@ public class Event implements ISQLable{
     private EOCUser creator;
     private LinkedList<Update> updates = new LinkedList<>();
 
-
-    private static int currentMaxId = getCurrentMaxEventID();
+    private static String primaryKeyName = "eventId";
+    private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
     private String tableFields = "event("
             + TblFields.enumDict.get("event").get(0) +
             TblFields.enumDict.get("event").get(1) +
@@ -42,7 +42,7 @@ public class Event implements ISQLable{
 
     @Override
     public String getPrimaryKeyName() {
-        return "eventId";
+        return primaryKeyName;
     }
 
     @Override

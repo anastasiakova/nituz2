@@ -14,7 +14,9 @@ public class Update implements ISQLable{
     private Date publishDate;
     private String publisherUsername;
     private int event;
-    private static int currentMaxId = getCurrentMaxUpdateID();
+
+    private static String primaryKeyName = "updateId";
+    private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
 
     private static int getCurrentMaxUpdateID() {
         //TODO the path should come from sql singleton
@@ -64,7 +66,7 @@ public class Update implements ISQLable{
 
     @Override
     public String getPrimaryKeyName() {
-        return "updateId";
+        return primaryKeyName;
     }
 
     public String getPuplishDateForQuery() {

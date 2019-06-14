@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32a8df96-0bb3-43f0-9b84-03b0488db890" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/update_constructors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/update_constructors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Model/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Model/Update.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Model/Update.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="dataBase.db" />
@@ -36,11 +35,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/Event.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="211">
-                  <caret line="212" column="17" selection-start-line="212" selection-start-column="17" selection-end-line="212" selection-end-column="17" />
+                <state relative-caret-position="170">
+                  <caret line="25" column="100" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="100" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#794#795#0" expanded="true" />
@@ -93,17 +92,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/code/src/main/java/View/AddCategoryController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+                <state relative-caret-position="204">
+                  <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/Update.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1778">
-                  <caret line="113" column="5" selection-start-line="113" selection-start-column="5" selection-end-line="113" selection-end-column="5" />
+                <state relative-caret-position="306">
+                  <caret line="18" column="100" lean-forward="true" selection-start-line="18" selection-start-column="100" selection-end-line="18" selection-end-column="100" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#2316#2317#0" expanded="true" />
@@ -175,8 +174,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="455">
-                  <caret line="269" selection-start-line="269" selection-end-line="269" />
+                <state relative-caret-position="374">
+                  <caret line="285" column="81" selection-start-line="285" selection-start-column="81" selection-end-line="285" selection-end-column="81" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -224,7 +223,6 @@
         <option value="$PROJECT_DIR$/code/src/main/java/Model/ISQLable.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/View/CreateEventController.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/View/WriteUpdate.fxml" />
-        <option value="$PROJECT_DIR$/code/src/main/java/Model/Update.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/Model/Organizations.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/Controllers/CreateController.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/Model/EOCUser.java" />
@@ -239,8 +237,9 @@
         <option value="$PROJECT_DIR$/code/src/main/java/Controllers/SearchController.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/Model/TblFields.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/Model/User.java" />
-        <option value="$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java" />
         <option value="$PROJECT_DIR$/code/src/main/java/Model/Event.java" />
+        <option value="$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java" />
+        <option value="$PROJECT_DIR$/code/src/main/java/Model/Update.java" />
       </list>
     </option>
   </component>
@@ -335,7 +334,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560500889465" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560501785024" />
     <property name="last_opened_file_path" value="D:/documents/users/shororen/Downloads/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -483,14 +482,21 @@
       <option name="project" value="LOCAL" />
       <updated>1560496785947</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Event almost done">
+      <created>1560500928130</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1560500928131</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18869936" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18869936" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -503,7 +509,7 @@
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.35102925" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" visible="true" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.17768148" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5026652" side_tool="true" weight="0.2892741" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32936078" />
@@ -521,7 +527,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="user constructors" />
     <MESSAGE value="Event is ISQLable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Event is ISQLable" />
+    <MESSAGE value="Event almost done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Event almost done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,8 +711,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/src/main/java/View/AddCategoryController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="204">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -779,26 +786,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/Update.java">
+    <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1778">
-          <caret line="113" column="5" selection-start-line="113" selection-start-column="5" selection-end-line="113" selection-end-column="5" />
+        <state relative-caret-position="374">
+          <caret line="285" column="81" selection-start-line="285" selection-start-column="81" selection-end-line="285" selection-end-column="81" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2316#2317#0" expanded="true" />
-            <element signature="e#2362#2363#0" expanded="true" />
-            <element signature="e#2417#2418#0" expanded="true" />
-            <element signature="e#2450#2451#0" expanded="true" />
-            <element signature="e#4264#4265#0" expanded="true" />
-            <element signature="e#4295#4296#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="212" column="17" selection-start-line="212" selection-start-column="17" selection-end-line="212" selection-end-column="17" />
+        <state relative-caret-position="170">
+          <caret line="25" column="100" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="100" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#794#795#0" expanded="true" />
@@ -835,12 +836,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/SQLModel.java">
+    <entry file="file://$PROJECT_DIR$/code/src/main/java/Model/Update.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="269" selection-start-line="269" selection-end-line="269" />
+        <state relative-caret-position="306">
+          <caret line="18" column="100" lean-forward="true" selection-start-line="18" selection-start-column="100" selection-end-line="18" selection-end-column="100" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2316#2317#0" expanded="true" />
+            <element signature="e#2362#2363#0" expanded="true" />
+            <element signature="e#2417#2418#0" expanded="true" />
+            <element signature="e#2450#2451#0" expanded="true" />
+            <element signature="e#4264#4265#0" expanded="true" />
+            <element signature="e#4295#4296#0" expanded="true" />
           </folding>
         </state>
       </provider>
