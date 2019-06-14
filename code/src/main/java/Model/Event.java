@@ -106,9 +106,57 @@ public class Event implements ISQLable{
             username = entry.getValue();
             this.inCharge.put(Organizations.valueOf(organization), getOrganizationUser(username));
         }
-
+        populateParticipants();
         this.id = currentMaxId + 1;
         currentMaxId++;
+    }
+
+    private void populateParticipants() {
+        SQLModel sql = SQLModel.getInstance();
+
+        String[] fields = new String[TblFields.enumDict.get("user").size()];
+        boolean shouldGetEntireTable = true;
+        String[] userStrRep = sql.selectFromTable(Tables.user, fields, shouldGetEntireTable).split("\n");
+
+        for (String usr : userStrRep) {
+            boolean isUserOrganizationParticipating = inCharge.get(Organizations.valueOf(usr.split(", ")[3])) != null;
+
+            if(isUserOrganizationParticipating){
+                OrganizationUser userInChargeInOrganization = inCharge.get(Organizations.valueOf(usr.split(", ")[3]));
+                int userRank = Integer.parseInt(usr.split(", ")[4]);
+                String username = usr.split(", ")[0];
+                Permission permission = (userRank >= userInChargeInOrganization.getRank() || userRank == -1) ?
+                        Permission.write : Permission.read;
+
+                participants.put(username, permission);
+            }
+        }
+    }
+
+    public void insertParticipantsToDb(){
+        //Get current participants from db
+        SQLModel sql = SQLModel.getInstance();
+
+        String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
+        fields[0] = String.valueOf(this.id);
+
+        String[] participantsStrRep = sql.selectFromTable(Tables.eventAndParticipate, fields).split("\n");
+
+
+        //Don't write existing participants again.
+        HashMap<String, Permission> addedParticipants = new HashMap<>(participants);
+
+        for (String participant : participantsStrRep) {
+            String username = participant.split(", ")[1];
+            if(addedParticipants.containsKey(username)){
+                //remove participants from
+                addedParticipants.remove(username);
+            }
+        }
+
+        for (HashMap.Entry<String, Permission> entry : addedParticipants.entrySet()) {
+            sql.insertParticipantsToDb(Integer.toString(getId()), entry.getKey());
+        }
     }
 
     private EOCUser getEOCUser(String username) {
@@ -266,9 +314,5 @@ public class Event implements ISQLable{
 
     public LinkedList<Update> getUpdates() {
         return updates;
-    }
-
-    public static int getCurrentMaxId() {
-        return currentMaxId;
     }
 }
