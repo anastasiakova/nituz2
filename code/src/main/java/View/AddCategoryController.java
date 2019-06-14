@@ -25,8 +25,8 @@ public class AddCategoryController {
     public javafx.scene.control.Button backButton;
     public javafx.scene.control.ListView cetgoriesTable;
     public static final ObservableList data = FXCollections.observableArrayList();
-    public CreateController cc = new CreateController();
-    public  SearchController sc = new SearchController();
+    public CreateController cc;
+    public  SearchController sc;
     public ObservableList<String> categories = sc.getAllCategories();
 
 

@@ -26,6 +26,7 @@ public class WriteUpdateController {
         this.logedInController = logedInController;
         this.createController = createController;
         eventsData = searchController.getMyEvents(logedInController.getUserNameFromUserAsStripAndCleanString());
+        events.setItems(eventsData);
     }
 
     public void sendUpdateAction(ActionEvent actionEvent){
