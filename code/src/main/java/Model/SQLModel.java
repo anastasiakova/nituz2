@@ -228,6 +228,8 @@ public class SQLModel {
                 return selectFromTbl("categories", fields, "categories", shouldGetAll);
             case eventAndParticipate:
                 return selectFromTbl("eventAndParticipate", fields, "eventAndParticipate", shouldGetAll);
+            case event:
+                return selectFromTbl("event", fields, "event", shouldGetAll);
             default:
                 return "";
         }
@@ -235,7 +237,7 @@ public class SQLModel {
 
     private String selectFromTbl(String table, String[] fields, String tblFields, boolean shouldGetAll) {
         String sql = "SELECT * FROM ";
-        sql += table.toLowerCase() + "\n";
+        sql += table/*.toLowerCase()*/ + "\n";
         if(!shouldGetAll) {
             sql += "WHERE ";
             boolean notFirst = false;
@@ -297,7 +299,7 @@ public class SQLModel {
 
     public void insertParticipantsToDb(String eventID, String username){
         String sql = "INSERT INTO eventAndParticipate("+
-                TblFields.enumDict.get("eventAndParticipate").get(0) +
+                TblFields.enumDict.get("eventAndParticipate").get(0) + ", " +
                 TblFields.enumDict.get("eventAndParticipate").get(1) +
                 ") VALUES(?,?)";
 

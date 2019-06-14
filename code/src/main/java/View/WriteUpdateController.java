@@ -55,8 +55,7 @@ public class WriteUpdateController {
             this.updateDescription = description.getText();
 
             Event event = new Event(this.searchController.getSpecificEvent(selectedEventName));
-            createController.createUpdate(this.username,event,this.updateDescription);
-
+            createController.createUpdate(this.username, event, this.updateDescription);
         }
     }
 }

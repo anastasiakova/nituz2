@@ -37,8 +37,21 @@ public class SearchController {
     public ObservableList<String> getMyEvents(String username){
         String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
         fields[1] = username;
-        String answer = sqlModel.selectFromTable(Tables.eventAndParticipate, fields);
-        return FXCollections.observableList(Arrays.asList(answer.split("\n")));
+        String eventsAndParticipinats = sqlModel.selectFromTable(Tables.eventAndParticipate, fields);
+        String[] eventIds = new String[eventsAndParticipinats.split("\n").length];
+        String[] answers = new String[eventIds.length];
+
+        for (int i = 0; i < eventIds.length; i++) {
+            eventIds[i] = eventsAndParticipinats.split(", ")[0];
+        }
+
+        fields = new String[TblFields.enumDict.get("event").size()];
+        for (int i = 0; i < eventIds.length; i++) {
+            fields[0] = eventIds[i];
+            answers[i] =  sqlModel.selectFromTable(Tables.event, fields);
+        }
+
+        return FXCollections.observableList(Arrays.asList(answers));
     }
 
     public String getSpecificEvent(String title){
