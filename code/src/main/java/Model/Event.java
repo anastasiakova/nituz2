@@ -16,10 +16,9 @@ public class Event implements ISQLable {
     private Date date;
     private ArrayList<Category> categories;
     private HashMap<Organizations, OrganizationUser> inCharge;
-    private HashMap<String, Permission> participants;
+    private HashMap<String, Permission> participants = new HashMap<>();
     private EOCUser creator;
     private LinkedList<Update> updates = new LinkedList<>();
-    private String initialUpdate;
 
     private static String primaryKeyName = "eventId";
     private static int currentMaxId = SQLModel.getInstance().getMaxID(Tables.event, primaryKeyName);
@@ -98,17 +97,17 @@ public class Event implements ISQLable {
 
     //    when user creates the event
     public Event(String creator, String headline, ArrayList<Category> categories,
-                 HashMap<String, String> inCharge, String initialUpdate) {
+                 HashMap<String, String> inCharge, String initialUpdateDescription) {
         this.title = headline;
         this.status = Status.inTreatment;
         this.date = new Date();
         this.categories = categories;
         this.creator = getEOCUser(creator);
-        this.initialUpdate = initialUpdate;
+
+
 
         String organization, username;
         this.inCharge = new HashMap<>();
-        this.participants = new HashMap<>();
         for (HashMap.Entry<String, String> entry : inCharge.entrySet()) {
             organization = entry.getKey();
             username = entry.getValue();
@@ -122,6 +121,10 @@ public class Event implements ISQLable {
         populateParticipants();
         this.id = currentMaxId + 1;
         currentMaxId++;
+
+        Update initialUpdate = new Update(this.creator.getUsername(), initialUpdateDescription, this.id);
+        SQLModel sql = SQLModel.getInstance();
+        sql.insertRecordToTable(initialUpdate);
     }
 
     private void populateParticipants() {
@@ -193,21 +196,33 @@ public class Event implements ISQLable {
         this(event.split(", "));
     }
 
-    public Event(Object[] splittedEvent) {
-        this.id = (int) splittedEvent[0];
-        this.title = (String) splittedEvent[1];
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    public Event(String[] splittedEvent) {
+        this.id = Integer.parseInt(splittedEvent[0]);
+        this.title = splittedEvent[1];
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+
         try {
-            this.date = formatter.parse((String) splittedEvent[2]);
+            this.date = formatter.parse(splittedEvent[2]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.status = Status.values()[(int) splittedEvent[3]];
+
+        this.status = Status.valueOf(splittedEvent[3]);
         inCharge = new HashMap<>();
-        addInCharge((String) splittedEvent[4], Organizations.Police);
-        addInCharge((String) splittedEvent[5], Organizations.EMS);
-        addInCharge((String) splittedEvent[6], Organizations.FD);
-        addCreator((String) splittedEvent[7]);
+        if(!splittedEvent[4].equals("")){
+            inCharge.put(Organizations.Police, getOrganizationUser(splittedEvent[4]));
+        }
+
+        if(!splittedEvent[5].equals("")){
+            inCharge.put(Organizations.EMS, getOrganizationUser(splittedEvent[5]));
+        }
+
+        if(!splittedEvent[6].equals("")){
+            inCharge.put(Organizations.FD, getOrganizationUser(splittedEvent[6]));
+        }
+
+        addCreator(splittedEvent[7]);
+
         loadParticipantsFromDb();
         loadAllUpdatesFromDb();
     }
@@ -288,12 +303,14 @@ public class Event implements ISQLable {
         SQLModel sql = SQLModel.getInstance();
 
         String[] fields = new String[TblFields.enumDict.get("updates").size()];
-        fields[2] = String.valueOf(this.id);
+        fields[1] = String.valueOf(this.id);
 
         String[] updatesStr = sql.selectFromTable(Tables.updates, fields).split("\n");
 
-        for (int i = 0; i < updatesStr.length; i++) {
-            addNewUpdate(new Update(updatesStr[i]));
+        if (!updatesStr[0].equals("")){
+            for (int i = 0; i < updatesStr.length; i++) {
+                addNewUpdate(new Update(updatesStr[i]));
+            }
         }
     }
 

@@ -230,6 +230,8 @@ public class SQLModel {
                 return selectFromTbl("eventAndParticipate", fields, "eventAndParticipate", shouldGetAll);
             case event:
                 return selectFromTbl("event", fields, "event", shouldGetAll);
+            case updates:
+                return selectFromTbl("updates", fields, "updates", shouldGetAll);
             default:
                 return "";
         }

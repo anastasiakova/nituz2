@@ -58,7 +58,7 @@ public class SearchController {
 
     public String getSpecificEvent(String title){
         String[] fields = new String[TblFields.enumDict.get("event").size()];
-        fields[1] = title;
+        fields[0] = title;
         String answer = sqlModel.selectFromTable(Tables.event, fields);
         return answer.split("\n")[0];
     }

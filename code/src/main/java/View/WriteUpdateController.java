@@ -39,7 +39,7 @@ public class WriteUpdateController {
 
             @Override
             public void handle(MouseEvent event) {
-                selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(",")[0];
+                selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
             }
         });
     }

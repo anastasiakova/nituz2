@@ -32,7 +32,7 @@ public class Update implements ISQLable{
         String[] splittedRow = updateRow.split(", ");
         this.id = Integer.parseInt(splittedRow[0]);
         this.event = Integer.parseInt(splittedRow[1]);
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
         try {
             this.publishDate = formatter.parse((String) splittedRow[2]);
         } catch (ParseException e) {
@@ -53,7 +53,7 @@ public class Update implements ISQLable{
     }
 
     public String getPuplishDateForQuery() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
         return formatter.format(this.publishDate);
     }
 
@@ -74,10 +74,10 @@ public class Update implements ISQLable{
     @Override
     public String getTableFields() {
         return "updates(" +
-                TblFields.enumDict.get("updates").get(0) +
-                TblFields.enumDict.get("updates").get(1) +
-                TblFields.enumDict.get("updates").get(2) +
-                TblFields.enumDict.get("updates").get(3) +
+                TblFields.enumDict.get("updates").get(0) + ", " +
+                TblFields.enumDict.get("updates").get(1) +", " +
+                TblFields.enumDict.get("updates").get(2) +", " +
+                TblFields.enumDict.get("updates").get(3) +", " +
                 TblFields.enumDict.get("updates").get(4) +
                 ") VALUES(?,?,?,?,?)";
     }
