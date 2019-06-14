@@ -94,21 +94,26 @@ public class OpenWindowController {
 
     public void addCategory(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
-        stage.setTitle("Add Category:");
+        stage.setTitle("Add Category");
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("AddCategory.fxml").openStream());
         AddCategoryController addCategoryController = fxmlLoader.getController();
         addCategoryController.SetControllers(this.searchController, this.createController);
-        Scene scene = new Scene(root);
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        //window.getScene().getStylesheets().add("/regPages.css");
-        //updateController.init();
-//            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
-        window.show();
+        Scene scene = new Scene(root, 500,300);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void createEvent(ActionEvent actionEvent) {
+//        Stage stage = new Stage();
+//        stage.setTitle("Add Category");
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        Parent root = fxmlLoader.load(getClass().getResource("AddCategory.fxml").openStream());
+//        AddCategoryController addCategoryController = fxmlLoader.getController();
+//        addCategoryController.SetControllers(this.searchController, this.createController);
+//        Scene scene = new Scene(root, 500,300);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
     public void writeUpdate(ActionEvent actionEvent) throws IOException {

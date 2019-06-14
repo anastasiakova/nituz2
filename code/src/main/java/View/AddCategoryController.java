@@ -27,7 +27,7 @@ public class AddCategoryController {
     public static final ObservableList data = FXCollections.observableArrayList();
     public CreateController cc;
     public  SearchController sc;
-    public ObservableList<String> categories = sc.getAllCategories();
+    public ObservableList<String> categories;
 
 
 
@@ -64,5 +64,14 @@ public class AddCategoryController {
     public void SetControllers(SearchController searchController, CreateController createController) {
         this.sc = searchController;
         this.cc = createController;
+        categories = sc.getAllCategories();
+        cetgoriesTable.setItems(categories);
+        cetgoriesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
+            }
+        });
     }
 }
