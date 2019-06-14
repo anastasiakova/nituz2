@@ -295,5 +295,21 @@ public class SQLModel {
         return 0;
     }
 
+    public void insertParticipantsToDb(String eventID, String username){
+        String sql = "INSERT INTO eventAndParticipate("+
+                TblFields.enumDict.get("eventAndParticipate").get(0) +
+                TblFields.enumDict.get("eventAndParticipate").get(1) +
+                ") VALUES(?,?)";
 
+        try (Connection conn = DriverManager.getConnection(_path);
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, eventID);
+            pstmt.setString(2, username);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
