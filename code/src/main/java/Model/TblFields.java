@@ -21,6 +21,7 @@ public class TblFields {
 
         enumList = Arrays.asList("participateEventId", "participateUsername");
         enumDict.put("eventAndParticipate", enumList);
+        //TODO both fields should be primary key
 
         enumList = Arrays.asList("feedbackEventId", "feedbacker", "feedbackee", "feedback");
         enumDict.put("feedback", enumList);
