@@ -11,7 +11,7 @@ public abstract class User implements ISQLable {
     private int warnings;
     private String email;
 
-    private String tableFields = "tbl_users("
+    private String tableFields = "user("
             + TblFields.enumDict.get("user").get(0) +
             TblFields.enumDict.get("user").get(1) +
             TblFields.enumDict.get("user").get(2) +
@@ -23,7 +23,7 @@ public abstract class User implements ISQLable {
             ") VALUES(?,?,?,?,?,?,?,?)";
 
     private String primaryKeyName = "username";
-    private String tableName = "tbl_users";
+    private String tableName = "user";
 
 
     public enum AccountStatus {

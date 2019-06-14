@@ -224,6 +224,8 @@ public class SQLModel {
         switch (table) {
             case user:
                 return selectFromTbl("user", fields, "user", shouldGetAll);
+            case categories:
+                return selectFromTbl("categories", fields, "categories", shouldGetAll);
 
             default:
                 return "";

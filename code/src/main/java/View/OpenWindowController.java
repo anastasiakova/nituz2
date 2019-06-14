@@ -27,7 +27,7 @@ public class OpenWindowController {
         this.logedInController = logedInController;
     }
 
-    public void initButtons(){
+    public void initButtons() {
         this.logOutButton.setVisible(false);
         this.welcomeLabel.setVisible(false);
 
@@ -62,20 +62,29 @@ public class OpenWindowController {
         this.useLabel.setVisible(false);
         this.passLabel.setVisible(false);
         this.logOutButton.setVisible(true);
-        this.welcomeLabel.setText("Welcome "+userName+"!");
+        this.welcomeLabel.setText("Welcome " + userName + "!");
         this.welcomeLabel.setVisible(true);
-
     }
-
-
 
     public void logOut(ActionEvent actionEvent) {
+        this.userText.setVisible(true);
+        this.userText.setText("");
+        this.passText.setText("");
+        this.loginButton.setVisible(true);
+        this.passText.setVisible(true);
+        this.useLabel.setVisible(true);
+        this.passLabel.setVisible(true);
+        this.logOutButton.setVisible(false);
+        this.welcomeLabel.setVisible(false);
+        this.logedInController.deleteUser();
+        this.userModeOn = false;
     }
 
-    public void editUpdate(ActionEvent actionEvent) {
-    }
 
-    public void writeUpdate(ActionEvent actionEvent) {
+    public void writeUpdate(ActionEvent actionEvent) {}
+
+    public void addCategory(ActionEvent actionEvent) {
+        System.out.println("ADD CATEGORY");
     }
 
     public void createEvent(ActionEvent actionEvent) {
