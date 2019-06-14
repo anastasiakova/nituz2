@@ -37,12 +37,14 @@ public class SearchController {
     public ObservableList<String> getMyEvents(String username){
         String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
         fields[1] = username;
-        String eventsAndParticipinats = sqlModel.selectFromTable(Tables.eventAndParticipate, fields);
-        String[] eventIds = new String[eventsAndParticipinats.split("\n").length];
+        String[] eventsAndParticipinats = sqlModel.selectFromTable(Tables.eventAndParticipate, fields).split("\n");
+
+
+        String[] eventIds = new String[eventsAndParticipinats.length];
         String[] answers = new String[eventIds.length];
 
         for (int i = 0; i < eventIds.length; i++) {
-            eventIds[i] = eventsAndParticipinats.split(", ")[0];
+            eventIds[i] = eventsAndParticipinats[i].split(", ")[0];
         }
 
         fields = new String[TblFields.enumDict.get("event").size()];
