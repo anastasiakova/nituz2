@@ -3,7 +3,7 @@ import Model.*;
 
 public class CreateController {
 
-    SQLModel sqlModel;
+    SQLModel sqlModel = SQLModel.getInstance();
 
 //    public void CreateEvent(String headline, String initUpdate, String Police, String EMS, String FD, Date publishTime){
 //        Event newEvent = new Event(headline, initUpdate, Police, EMS, FD, publishTime);

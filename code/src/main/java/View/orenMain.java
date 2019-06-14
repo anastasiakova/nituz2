@@ -24,10 +24,10 @@ public class orenMain extends Application {
         public void start(Stage primaryStage) throws Exception{
             SQLModel sqlModel = SQLModel.getInstance();
             FXMLLoader fxmlControl = new FXMLLoader();
-            Parent root = fxmlControl.load(getClass().getResource(("WriteUpdate.fxml")).openStream());
+            Parent root = fxmlControl.load(getClass().getResource(("AddCategory.fxml")).openStream());
             primaryStage.setTitle("VACATION 4 U ");
-            WriteUpdateController view = fxmlControl.getController();
-            //view.initButtons();
+            AddCategoryController view = fxmlControl.getController();
+            view.init();
             primaryStage.setScene(new Scene(root, 950, 620));
             //primaryStage.getScene().getStylesheets().add("/openWindowCss.css");
             primaryStage.show();

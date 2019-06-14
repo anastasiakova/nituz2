@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.CreateController;
 import Controllers.SearchController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ public class AddCategoryController {
     public javafx.scene.control.Button backButton;
     public javafx.scene.control.ListView cetgoriesTable;
     public static final ObservableList data = FXCollections.observableArrayList();
+    public CreateController cc = new CreateController();
     public  SearchController sc = new SearchController();
     public ObservableList<String> categories = sc.getAllCategories();
 
@@ -26,7 +28,7 @@ public class AddCategoryController {
     }
     public void addCategory(ActionEvent actionEvent) {
         if (!categories.contains(categoryTextField.getText())) {
-            categories.add(categoryTextField.getText());
+            cc.insertToTable(categoryTextField.getText());
             init();
         }
         else {
