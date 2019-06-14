@@ -90,11 +90,6 @@ public class Event implements ISQLable {
         treatmentOver
     }
 
-    enum Permission {
-        read,
-        write
-    }
-
     //    when user creates the event
     public Event(String creator, String headline, ArrayList<Category> categories,
                  HashMap<String, String> inCharge, String initialUpdateDescription) {
