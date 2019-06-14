@@ -25,18 +25,16 @@ public class AddCategoryController {
         cetgoriesTable.setItems(categories);
     }
     public void addCategory(ActionEvent actionEvent) {
-        if(!categories.contains(categoryTextField.getText()))
-
+        if (!categories.contains(categoryTextField.getText())) {
             categories.add(categoryTextField.getText());
+            init();
+        }
         else {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Category already inside! ");
             errorAlert.setContentText("the category you just made is alredy in the list :)");
             errorAlert.showAndWait();
 
-//            ObservableList<String> items = FXCollections.observableArrayList (
-//                    "A", "B", "C", "D");
-//            cetgoriesTable.setItems(items);
         }
         System.out.println(categories);
     }
