@@ -26,7 +26,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="228.0" layoutY="265.0" mnemonicParsing="false" text="back">
+      <Button fx:id="backButton" layoutX="228.0" layoutY="265.0" mnemonicParsing="false" onAction="#closeWind" text="back">
          <font>
             <Font size="15.0" />
          </font></Button>
