@@ -108,7 +108,7 @@ public class Event implements ISQLable {
 
         String organization, username;
         this.inCharge = new HashMap<>();
-        this.participants =new HashMap<>();
+        this.participants = new HashMap<>();
         for (HashMap.Entry<String, String> entry : inCharge.entrySet()) {
             organization = entry.getKey();
             username = entry.getValue();
@@ -160,10 +160,14 @@ public class Event implements ISQLable {
         HashMap<String, Permission> addedParticipants = new HashMap<>(participants);
 
         for (String participant : participantsStrRep) {
-            String username = participant.split(", ")[1];
-            if (addedParticipants.containsKey(username)) {
-                //remove participants that already appear on disk
-                addedParticipants.remove(username);
+            String[] ans = participant.split(", ");
+            String username = "";
+            if (ans.length > 1) {
+                username = ans[1];
+                if (addedParticipants.containsKey(username)) {
+                    //remove participants that already appear on disk
+                    addedParticipants.remove(username);
+                }
             }
         }
 
