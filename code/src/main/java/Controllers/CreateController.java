@@ -1,14 +1,18 @@
 package Controllers;
 import Model.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class CreateController {
 
     SQLModel sqlModel = SQLModel.getInstance();
 
-//    public void CreateEvent(String headline, String initUpdate, String Police, String EMS, String FD, Date publishTime){
+    public void CreateEvent(EOCUser logedIn, String headline, ArrayList<Category> categories,
+                            HashMap<String, String> inCharge){
 //        Event newEvent = new Event(headline, initUpdate, Police, EMS, FD, publishTime);
 //        sqlModel.insertRecordToTable(Tables.TBL_USERS.toString().toLowerCase(), newUser);
-//    }
+    }
 
     public void createUpdate(String username, Event event, String description){
         //create Update

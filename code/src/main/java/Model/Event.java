@@ -1,7 +1,5 @@
 package Model;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -93,16 +91,35 @@ public class Event implements ISQLable{
         write
     }
     //    when user creates the event
-    public Event(EOCUser creator, String title, ArrayList<Category> categories, HashMap<Organizations, OrganizationUser> inCharge){
-        this.title = title;
+    public Event(String creator, String headline, ArrayList<Category> categories,
+                 HashMap<String, String> inCharge){
+        this.title = headline;
         this.status = Status.inTreatment;
         this.date = new Date();
         this.categories = categories;
-        this.creator = creator;
-        this.inCharge = inCharge;
-        this.id = currentMaxId + 1;
+        this.creator = getEOCUser(creator);
 
+        String organization, username;
+
+        for (HashMap.Entry<String, String> entry : inCharge.entrySet()) {
+            organization = entry.getKey();
+            username = entry.getValue();
+            this.inCharge.put(Organizations.valueOf(organization), getOrganizationUser(username));
+        }
+
+        this.id = currentMaxId + 1;
         currentMaxId++;
+    }
+
+    private EOCUser getEOCUser(String username) {
+        SQLModel sql = SQLModel.getInstance();
+
+        String[] fields = new String[TblFields.enumDict.get("user").size()];
+        fields[0] = username;
+
+        String userStrRep = sql.selectFromTable(Tables.user, fields);
+
+        return new EOCUser(userStrRep);
     }
 
     //    when load from table
@@ -170,7 +187,7 @@ public class Event implements ISQLable{
 
         for (int i = 0; i < participantsStrRep.length; i++) {
             String username = participantsStrRep[i].split(", ")[1];
-            OrganizationUser user = getUser(username);
+            OrganizationUser user = getOrganizationUser(username);
             // if admin or higher rank should have write permission
             if(user != null) {
                 if (user.getRank() == -1 || user.getRank() >= inCharge.get(user.getOrganization()).getRank()) {
@@ -182,7 +199,11 @@ public class Event implements ISQLable{
         }
     }
 
-    private OrganizationUser getUser(String username) {
+    private OrganizationUser getOrganizationUser(String username) {
+        if(username == ""){
+            return null;
+        }
+
         SQLModel sql = SQLModel.getInstance();
 
         String[] fields = new String[TblFields.enumDict.get("user").size()];
