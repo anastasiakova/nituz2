@@ -34,11 +34,11 @@ public class SearchController {
         return FXCollections.observableList(Arrays.asList(answer.split(", \n")));
     }
 
-    public List<String> getMyEvents(String username){
+    public ObservableList<String> getMyEvents(String username){
         String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
         fields[1] = username;
         String answer = sqlModel.selectFromTable(Tables.eventAndParticipate, fields);
-        return Arrays.asList(answer.split("\n"));
+        return FXCollections.observableList(Arrays.asList(answer.split("\n")));
     }
 
 }
