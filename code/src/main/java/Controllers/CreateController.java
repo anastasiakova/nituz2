@@ -1,7 +1,5 @@
 package Controllers;
-import Model.Event;
-import Model.SQLModel;
-import Model.Update;
+import Model.*;
 
 public class CreateController {
 
@@ -18,7 +16,12 @@ public class CreateController {
         //add to event
         event.addNewUpdate(update);
         //write to db
+        sqlModel.insertRecordToTable(update);
+    }
 
+    public void insertToTable(String insertValue){
+        ISQLable newCategory = new Category(insertValue);
+        sqlModel.insertRecordToTable(newCategory);
     }
 
 }

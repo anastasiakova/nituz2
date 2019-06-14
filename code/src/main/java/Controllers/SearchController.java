@@ -34,11 +34,6 @@ public class SearchController {
         return FXCollections.observableList(Arrays.asList(answer.split(", \n")));
     }
 
-    public void insertToTable(String insertValue){
-        ISQLable newCategory = new Category(insertValue);
-        sqlModel.insertRecordToTable(Tables.categories.toString(),newCategory);
-    }
-
     public List<String> getMyEvents(String username){
         String[] fields = new String[TblFields.enumDict.get("eventAndParticipate").size()];
         fields[1] = username;

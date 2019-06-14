@@ -268,7 +268,7 @@ public class SQLModel {
     }
 
 
-    public void insertRecordToTable(String table, ISQLable isqLable){
+    public void insertRecordToTable(ISQLable isqLable){
         String sql = "INSERT INTO " + isqLable.getTableFields();
 
         try (Connection conn = DriverManager.getConnection(_path);
