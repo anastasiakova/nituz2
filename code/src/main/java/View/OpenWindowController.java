@@ -1,13 +1,20 @@
 package View;
 
+import Controllers.CreateController;
 import Controllers.LogedInController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class OpenWindowController {
 
@@ -18,7 +25,8 @@ public class OpenWindowController {
     public Button loginButton;
     public Button logOutButton;
     public Label welcomeLabel;
-    public LogedInController logedInController;
+    public LogedInController logedInController = new LogedInController();
+    public CreateController createController = new CreateController();
     public boolean userModeOn;
     public Label useLabel;
     public Label passLabel;
@@ -40,7 +48,7 @@ public class OpenWindowController {
         boolean loginSuccessful = false;
         if (userName != "" && password != "") {
             //controller search
-            this.logedInController = new LogedInController();
+            //this.logedInController = new LogedInController();
 //            loginSuccessful = searchController.isLoginValid(userText.getText(), passText.getText());
             loginSuccessful = logedInController.tryLogIn(userName, password);
             if (loginSuccessful) {
@@ -81,12 +89,29 @@ public class OpenWindowController {
     }
 
 
-    public void writeUpdate(ActionEvent actionEvent) {}
 
     public void addCategory(ActionEvent actionEvent) {
         System.out.println("ADD CATEGORY");
     }
 
     public void createEvent(ActionEvent actionEvent) {
+    }
+
+    public void writeUpdate(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Write Update:");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("WriteUpdate.fxml").openStream());
+        WriteUpdateController updateController = fxmlLoader.getController();
+        updateController.SetControllers(this.logedInController, this.createController);
+        //updateController.updateTextFields(userName,password);
+
+        Scene scene = new Scene(root);
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        //window.getScene().getStylesheets().add("/regPages.css");
+        //updateController.init();
+//            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+        window.show();
     }
 }

@@ -32,6 +32,7 @@ public class CreateEventController {
 
 
     public CreateEventController() {
+
     }
 
     public void createEventAction() throws ParseException {
