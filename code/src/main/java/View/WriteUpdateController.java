@@ -33,16 +33,21 @@ public class WriteUpdateController {
         this.createController = createController;
         this.searchController = searchController;
         eventsData = searchController.getMyEvents(logedInController.getUserNameFromUserAsStripAndCleanString());
-        //if (eventsData != null) {
+//        if (events != null) {
         events.setItems(eventsData);
-        events.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
-            }
-        });
-        //}
+//        events.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//
+//            @Override
+//            public void handle(MouseEvent event) {
+//                selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
+//            }
+//        });
+           // return true;
+//        }
+//        else{
+//            sendUpdateButton.setDisable(true);
+//            return false;
+//        }
     }
 
     public void sendUpdateAction(ActionEvent actionEvent) {
