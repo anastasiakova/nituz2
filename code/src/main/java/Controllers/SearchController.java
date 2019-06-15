@@ -27,6 +27,24 @@ public class SearchController {
         return user;
     }
 
+    public User getUserFromdb(String username){
+        String[] fields = new String[TblFields.enumDict.get("user").size()];
+        fields[0] = username;
+        String user = sqlModel.selectFromTable(Tables.user, fields);
+        if (!user.equals("")) {
+            String[] valid = user.split("\n");
+            String[] userFields = valid[0].split(", ");
+            String currOrg = userFields[3];
+            String eoc = Organizations.EOC.toString();
+            if (currOrg.equals(eoc)) {
+                return new EOCUser(userFields);
+            } else {
+                return new OrganizationUser(userFields);
+            }
+        } else{
+            return null;
+        }
+    }
 
     public ObservableList<String> getAllCategories() {
         String[] fields = new String[TblFields.enumDict.get("categories").size()];

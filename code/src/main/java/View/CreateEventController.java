@@ -3,8 +3,7 @@ package View;
 import Controllers.CreateController;
 import Controllers.LogedInController;
 import Controllers.SearchController;
-import Model.Category;
-import Model.EOCUser;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
+import org.omg.PortableInterceptor.ORBIdHelper;
 
 
 import java.text.ParseException;
@@ -39,10 +39,10 @@ public class CreateEventController {
     public LogedInController logedInController;
     public SearchController searchController;
     public ObservableList<String> categoriesFormDB;
+    private boolean isAnyCategoryPicked;
 
 
     public CreateEventController() {
-
     }
 
     public void SetControllers(LogedInController logedInController, CreateController createController, SearchController searchController){
@@ -54,6 +54,7 @@ public class CreateEventController {
     }
 
     public void init(){
+        isAnyCategoryPicked = false;
         categoriesFormDB = searchController.getAllCategories();
         categoriesLostView.setItems(categoriesFormDB);
         categoriesLostView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -62,7 +63,8 @@ public class CreateEventController {
             public void handle(MouseEvent event) {
                 try {
                     categories.add(new Category(categoriesLostView.getSelectionModel().getSelectedItem().toString()));
-                    System.out.println("clicked on " + categoriesLostView.getSelectionModel().getSelectedItem());
+                    isAnyCategoryPicked = true;
+                    //System.out.println("clicked on " + categoriesLostView.getSelectionModel().getSelectedItem());
                 }
                 catch (Exception e){
                     System.out.println("");
@@ -79,8 +81,11 @@ public class CreateEventController {
         }else if(initialUpdate.getText().equals("") || initialUpdate == null){
             alert.setContentText("Please enter your first update");
             alert.show();
-        }else if((policePart.getText().equals("") && EMSPart.getText().equals("") && FDPart.getText().equals("")) || (policePart == null && EMSPart == null && FDPart == null)){
+        }else if((policePart.getText().equals("") && EMSPart.getText().equals("") && FDPart.getText().equals("")) || (policePart == null && EMSPart == null && FDPart == null)) {
             alert.setContentText("Please enter at least one candidate");
+            alert.show();
+        }else if(!isAnyCategoryPicked){
+            alert.setContentText("Please select at least one category");
             alert.show();
         }else {
             this.publisher = logedInController.getUserNameFromUserAsStripAndCleanString();
@@ -90,14 +95,47 @@ public class CreateEventController {
             String EMSName = EMSPart.getText();
             String FDName = FDPart.getText();
             HashMap<String, String> inCharge = new HashMap<String, String>();
-            inCharge.put("Police", policeName);
-            inCharge.put("EMS", EMSName);
-            inCharge.put("FD", FDName);
-            this.createController.CreateEvent(publisher, headLine, categories, inCharge, initUpdate);
 
-            Alert goodAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            goodAlert.setContentText("Your Event Has Been Created");
-            goodAlert.show();
+            boolean areAllUsernamesValid = true;
+
+            User policeUser = searchController.getUserFromdb(policeName);
+            if(policeUser instanceof OrganizationUser && ((OrganizationUser)((OrganizationUser)policeUser)).getOrganization() == Organizations.Police){
+                inCharge.put("Police", policeName);
+            }
+            else if (!policeName.equals("")){
+                areAllUsernamesValid = areAllUsernamesValid && policeName.equals("");
+                alert.setContentText("An incorrect Police user was detected.\nEither this user does not exist, or is not serving in the emergency agency you picked.");
+                alert.show();
+            }
+
+            User emsUser = searchController.getUserFromdb(EMSName);
+            if(emsUser instanceof OrganizationUser && ((OrganizationUser)((OrganizationUser)emsUser)).getOrganization() == Organizations.EMS){
+                inCharge.put("EMS", EMSName);
+            }
+            else if(!EMSName.equals("")){
+                areAllUsernamesValid = areAllUsernamesValid && EMSName.equals("");
+                alert.setContentText("An incorrect EMS user was detected.\nEither this user does not exist, or is not serving in the emergency agency you picked.");
+                alert.show();
+            }
+
+            User fdUser = searchController.getUserFromdb(FDName);
+            if(fdUser instanceof OrganizationUser && ((OrganizationUser)((OrganizationUser)fdUser)).getOrganization() == Organizations.FD){
+                inCharge.put("FD", FDName);
+            }
+            else if(!FDName.equals("")){
+                areAllUsernamesValid = areAllUsernamesValid && FDName.equals("");
+                alert.setContentText("An incorrect Fire Department user was detected.\nEither this user does not exist, or is not serving in the emergency agency you picked.");
+                alert.show();
+            }
+
+            if(areAllUsernamesValid){
+                this.createController.CreateEvent(publisher, headLine, categories, inCharge, initUpdate);
+
+                Alert goodAlert = new Alert(Alert.AlertType.INFORMATION);
+                goodAlert.setContentText("Your event has been successfully created");
+                goodAlert.show();
+            }
+
 
 
         }
