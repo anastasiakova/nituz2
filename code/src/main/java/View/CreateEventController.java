@@ -94,6 +94,7 @@ public class CreateEventController {
             goodAlert.setContentText("Your Event Has Been Created");
             goodAlert.show();
 
+
         }
 
     }
