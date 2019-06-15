@@ -48,9 +48,9 @@ public class OpenWindowController {
     public void initButtons() {
         this.logOutButton.setVisible(false);
         this.welcomeLabel.setVisible(false);
-//        this.youveBeenAttchedLabel.setVisible(false);
-//        this.eventLabel.setVisible(false);
-//        this.eventNumLabel.setVisible(false);
+        this.youveBeenAttchedLabel.setVisible(false);
+        this.eventLabel.setVisible(false);
+        this.eventNumLabel.setVisible(false);
         this.createEventButton.setDisable(true);
         this.writeUpdateButton.setDisable(true);
         this.addCategoryButton.setDisable(true);
@@ -75,6 +75,9 @@ public class OpenWindowController {
                 if (loged instanceof EOCUser)
                     this.createEventButton.setDisable(false);
 
+
+
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("You Suck!");
@@ -85,7 +88,12 @@ public class OpenWindowController {
     }
 
 
-    public void loginButtonsMaker() {
+    public void loginButtonsMaker() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("WriteUpdate.fxml").openStream());
+        WriteUpdateController updateController = fxmlLoader.getController();
+        int ans = updateController.SetControllers(this.logedInController, this.createController, this.searchController);
+
         this.userText.setVisible(false);
         this.loginButton.setVisible(false);
         this.passText.setVisible(false);
@@ -95,9 +103,12 @@ public class OpenWindowController {
         this.welcomeLabel.setText("Welcome " + userName + "!");
         this.welcomeLabel.setVisible(true);
         this.writeUpdateButton.setDisable(false);
-//        this.youveBeenAttchedLabel.setVisible(true);
-//        this.eventLabel.setVisible(true);
-//        this.eventNumLabel.setVisible(true);
+        this.youveBeenAttchedLabel.setVisible(true);
+        this.eventLabel.setVisible(true);
+        this.eventNumLabel.setVisible(true);
+        if(ans == -1)
+            ans = 0;
+        this.eventNumLabel.setText(String.valueOf(ans));
 
     }
 
@@ -116,9 +127,9 @@ public class OpenWindowController {
         this.createEventButton.setDisable(true);
         this.writeUpdateButton.setDisable(true);
         this.addCategoryButton.setDisable(true);
-//        this.youveBeenAttchedLabel.setVisible(false);
-//        this.eventLabel.setVisible(false);
-//        this.eventNumLabel.setVisible(false);
+        this.youveBeenAttchedLabel.setVisible(false);
+        this.eventLabel.setVisible(false);
+        this.eventNumLabel.setVisible(false);
     }
 
 
@@ -152,19 +163,19 @@ public class OpenWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("WriteUpdate.fxml").openStream());
         WriteUpdateController updateController = fxmlLoader.getController();
-        updateController.SetControllers(this.logedInController, this.createController, this.searchController);
-//        if(ans == true) {
+        int ans = updateController.SetControllers(this.logedInController, this.createController, this.searchController);
+        if(ans != -1) {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-//        }
-//        else{
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setContentText("You need to be own some events first!!");
-//            alert.show();
-//        }
-        //window.getScene().getStylesheets().add("/regPages.css");
-        //updateController.init();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("You need to be participate in some events first!!");
+            alert.show();
+        }
+//        window.getScene().getStylesheets().add("/regPages.css");
+//        updateController.init();
 //            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
 
     }

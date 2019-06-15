@@ -28,26 +28,27 @@ public class WriteUpdateController {
     String selectedEventName = "";
 
 
-    public void SetControllers(LogedInController logedInController, CreateController createController, SearchController searchController) {
+    public int SetControllers(LogedInController logedInController, CreateController createController, SearchController searchController) {
         this.logedInController = logedInController;
         this.createController = createController;
         this.searchController = searchController;
         eventsData = searchController.getMyEvents(logedInController.getUserNameFromUserAsStripAndCleanString());
-//        if (events != null) {
-        events.setItems(eventsData);
-//        events.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//            @Override
-//            public void handle(MouseEvent event) {
-//                selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
-//            }
-//        });
-           // return true;
-//        }
-//        else{
-//            sendUpdateButton.setDisable(true);
-//            return false;
-//        }
+        if (null != eventsData.get(0)) {
+            events.setItems(eventsData);
+            events.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent event) {
+
+                    selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
+                    System.out.println(selectedEventName);
+                }
+            });
+            return eventsData.size();
+        }
+        else{
+            return -1;
+        }
     }
 
     public void sendUpdateAction(ActionEvent actionEvent) {
