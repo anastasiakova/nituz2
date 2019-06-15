@@ -60,8 +60,13 @@ public class CreateEventController {
 
             @Override
             public void handle(MouseEvent event) {
-                categories.add(new Category(categoriesLostView.getSelectionModel().getSelectedItem().toString()));
-                System.out.println("clicked on " + categoriesLostView.getSelectionModel().getSelectedItem());
+                try {
+                    categories.add(new Category(categoriesLostView.getSelectionModel().getSelectedItem().toString()));
+                    System.out.println("clicked on " + categoriesLostView.getSelectionModel().getSelectedItem());
+                }
+                catch (Exception e){
+                    System.out.println("");
+                }
             }
         });
     }

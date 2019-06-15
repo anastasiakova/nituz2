@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
 public class WriteUpdateController {
@@ -25,6 +26,7 @@ public class WriteUpdateController {
     public javafx.scene.control.TextArea description;
     public String username = "";
     public String updateDescription;
+    public Button backButton;
     String selectedEventName = "";
 
 
@@ -37,11 +39,17 @@ public class WriteUpdateController {
             events.setItems(eventsData);
             events.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+
                 @Override
                 public void handle(MouseEvent event) {
+                    try{
+                        selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
+                        System.out.println(selectedEventName);
+                    }
+                    catch (Exception e){
+                        System.out.println("");
+                    }
 
-                    selectedEventName = events.getSelectionModel().getSelectedItem().toString().split(", ")[0];
-                    System.out.println(selectedEventName);
                 }
             });
             return eventsData.size();
@@ -62,8 +70,13 @@ public class WriteUpdateController {
             this.updateDescription = description.getText();
             if (!selectedEventName.equals("")) {
                 Event event = new Event(this.searchController.getSpecificEvent(selectedEventName));
-                if (event.getParticipants().get(this.username) == Permission.write)
+                if (event.getParticipants().get(this.username) == Permission.write) {
                     createController.createUpdate(this.username, event, this.updateDescription);
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setContentText("update was added successfully! ");
+                    alert1.show();
+                    description.setText("");
+                }
                 else {
                     alert.setContentText("No Write permissions were given for this event.");
                     alert.show();
@@ -73,5 +86,10 @@ public class WriteUpdateController {
                 alert.show();
             }
         }
+    }
+
+    public void closeWind(ActionEvent actionEvent) {
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.close();
     }
 }

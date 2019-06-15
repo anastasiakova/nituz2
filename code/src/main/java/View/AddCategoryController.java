@@ -42,8 +42,14 @@ public class AddCategoryController {
 
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
+                try {
+                    System.out.println("clicked on " + cetgoriesTable.getSelectionModel().getSelectedItem());
+                }
+                catch (Exception e){
+                    System.out.println("");
+                }
             }
+
         });
     }
     public void addCategory(ActionEvent actionEvent) {
